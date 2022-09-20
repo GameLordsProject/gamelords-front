@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
   <v-card height="100%" class="px-9 pt-4">
 
@@ -11,8 +12,10 @@
     </v-card-subtitle>
 
     <v-card-text>
-      <v-text-field v-model="searchedText" class="mx-10" name="name" placeholder="Search your desired character"
-        @keyup.enter="search()">
+
+      <v-text-field v-model="searchedText" class="mx-5" name="name" prepend-icon="mdi-magnify"
+        placeholder="Search your desired character" @keyup.enter="search()">
+
       </v-text-field>
     </v-card-text>
   </v-card>

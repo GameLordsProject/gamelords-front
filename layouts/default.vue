@@ -1,19 +1,39 @@
 <template>
   <v-app dark>
     <v-app-bar app color="#817878">
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
-      <v-toolbar-title>Westeros Rising</v-toolbar-title>
+      <v-toolbar-title mr-10>
+        <NuxtLink class="nolink" to="/">
+          Westeros Rising
+        </NuxtLink>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
-
+    <v-navigation-drawer v-model="drawer" absolute temporary>
+      <p class="pl-5 pt-7" align-end @click="drawer = false">X</p>
+      <v-list nav dense>
+        <v-list-item-group v-model="group" active-class="deep-grey--text text--accent-4">
+          <NuxtLink class="nolink" to="/search">
+            <v-list-item class="mt-5">
+              <v-list-item-icon>
+                <v-icon>mdi-magnify</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>
+                Search
+              </v-list-item-title>
+            </v-list-item>
+          </NuxtLink>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
     <v-main>
       <Nuxt />
     </v-main>
 
     <v-footer :absolute="!fixed" app>
       <v-spacer></v-spacer>
-      <span class="text-center">&copy; {{ new Date().getFullYear() }}</span>
+      <span class="text-center"> Westeros Rising Open Source Project &copy; {{ new Date().getFullYear() }}</span>
       <v-spacer></v-spacer>
     </v-footer>
   </v-app>
@@ -24,6 +44,8 @@ export default {
   name: 'DefaultLayout',
   data() {
     return {
+      drawer: false,
+      group: null,
       fixed: false,
     }
   },
@@ -33,5 +55,10 @@ export default {
 <style>
 .navbar {
   background-color: #817878;
+}
+
+.nolink {
+  text-decoration: none;
+  color: white !important
 }
 </style>
