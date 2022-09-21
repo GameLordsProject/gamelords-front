@@ -2,8 +2,8 @@
 <template>
   <v-card height="100%" class="px-9 pt-4">
 
-    <v-card-title class="justify-center text-h4 text-md-h3">
-      Westeros Rising
+    <v-card-title class="justify-center text-h5 text-md-h3">
+      <span class="nolink">Westeros Rising</span>
     </v-card-title>
 
     <v-card-subtitle>
@@ -36,3 +36,7 @@ export default {
   }
 }
 </script>
+
+<style>
+
+</style>

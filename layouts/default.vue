@@ -1,10 +1,10 @@
 <template>
   <v-app dark>
-    <v-app-bar app color="#817878">
-      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+    <v-app-bar app color="#bbcccb">
+      <v-app-bar-nav-icon class="header" @click="drawer = true"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <v-toolbar-title mr-10>
-        <NuxtLink class="nolink" to="/">
+        <NuxtLink class="header" to="/">
           Westeros Rising
         </NuxtLink>
       </v-toolbar-title>
@@ -53,12 +53,25 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: 'got';
+  src: url('../assets/fonts/got.ttf') format('truetype');
+}
+
 .navbar {
-  background-color: #817878;
+  background-color: #ffffff !important;
 }
 
 .nolink {
   text-decoration: none;
-  color: white !important
+  color: white !important;
+  font-family: got !important;
+}
+
+.header {
+  text-decoration: none;
+  color: #867266 !important;
+  font-family: got !important;
+  font-weight: bolder !important;
 }
 </style>
