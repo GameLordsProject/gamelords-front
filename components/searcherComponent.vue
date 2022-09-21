@@ -56,6 +56,7 @@
 </template>
 
 <script>
+
 import defaultImage from '@/assets/imgs/imgNotFound.png'
 export default {
   name: 'SearcherComponent',
@@ -70,7 +71,15 @@ export default {
       imageDefault: defaultImage,
       houseImg: {
         default: defaultImage,
-        "House Stark": this.character.image
+        "House Stark": require(`~/assets/shields/House Stark.png`),
+        "House Arryn": require(`~/assets/shields/House Arryn.png`),
+        "House Baratheon": require(`~/assets/shields/House Baratheon.png`),
+        "House Greyjoy": require(`~/assets/shields/House Greyjoy.png`),
+        "House Lannister": require(`~/assets/shields/House Lannister.png`),
+        "House Martell": require(`~/assets/shields/House Martell.png`),
+        "House Targaryen": require(`~/assets/shields/House Targaryen.png`),
+        "House Tully": require(`~/assets/shields/House Tully.png`),
+        "House Tyrell": require(`~/assets/shields/House Tyrell.png`),
       }
     }
   },
@@ -79,7 +88,8 @@ export default {
       return this.character.house
     },
     checkMyHouse() {
-      if (this.houseImg[`${this.character.house}`]) {
+      if (this.houseImg[`${this.character.house}`] || this.character.house !== 'Westeros Rising') {
+        console.log(this.character.house)
         return this.houseImg[`${this.character.house}`]
       }
       return this.houseImg.default
@@ -150,8 +160,8 @@ p {
 }
 
 .Targaryen {
-  background-color: #be210e !important;
-  border: 2px solid #000000 !important;
+  background-color: #252525 !important;
+  border: 2px solid #770f0f !important;
 }
 
 .absolute {
