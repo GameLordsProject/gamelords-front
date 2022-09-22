@@ -24,7 +24,7 @@
         <h3>{{character.house}}</h3>
       </v-card-subtitle>
       <v-card-text>
-        <div v-if="character.titles">
+        <div v-if="character.titles.length > 0">
           <h4>TITLES</h4>
           <div v-for="(titles, idx) in character.titles" :key="idx">
             <p> {{titles}}</p>
@@ -33,6 +33,10 @@
         <div v-if="character.gender == 'male'">
           <h4>GENDER</h4>
           <p>Male</p>
+        </div>
+        <div v-else-if="character.gender == 'drake'">
+          <h4>GENDER</h4>
+          <p>Drake</p>
         </div>
         <div v-else>
           <h4>GENDER</h4>
@@ -78,6 +82,7 @@ export default {
         "House Lannister": require(`~/assets/shields/House Lannister.png`),
         "House Martell": require(`~/assets/shields/House Martell.png`),
         "House Targaryen": require(`~/assets/shields/House Targaryen.png`),
+        "House Targaryen[1]": require(`~/assets/shields/House Targaryen.png`),
         "House Tully": require(`~/assets/shields/House Tully.png`),
         "House Tyrell": require(`~/assets/shields/House Tyrell.png`),
       }
@@ -89,7 +94,6 @@ export default {
     },
     checkMyHouse() {
       if (this.houseImg[`${this.character.house}`] || this.character.house !== 'Westeros Rising') {
-        console.log(this.character.house)
         return this.houseImg[`${this.character.house}`]
       }
       return this.houseImg.default
@@ -140,7 +144,6 @@ p {
 }
 
 .Lannister {
-  background-color: #8a0800 !important;
   border: 2px solid #af9710 !important;
 }
 
