@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
   <v-card class="mb-5 got">
     <div :class="character.house">

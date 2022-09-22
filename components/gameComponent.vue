@@ -1,6 +1,7 @@
+<!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
   <div>
-    <v-card v-if="gamestarted" @click="selected()" v-bind:class="{active: isActive}" class="mb-5 got">
+    <v-card v-if="gamestarted" :class="{active: isActive}" class="mb-5 got" @click="selected()">
       <div :class="duel.a.house">
         <div v-if="duel.a.image">
           <v-img class="image"
@@ -57,7 +58,7 @@
       </div>
     </v-card>
     <v-btn v-if="!gamestarted" color="success" @click="randomizeDuel()">Start Game</v-btn>
-    <v-btn v-if="gamestarted && isSelected" color="success" @click="randomizeDuel()">Continue</v-btn>
+    <v-btn v-if="gamestarted && isSelected" color="success" @click="continueGame()">Continue</v-btn>
   </div>
 </template>
 
@@ -80,6 +81,8 @@ export default {
       isActive: false,
       isActive2: false,
       isSelected: false,
+      arrayPosition: 0,
+      arrayPosition2: 0,
       charactersArray: [],
       duel: {
         a: {
@@ -137,16 +140,21 @@ export default {
       }
     },
     continueGame() {
-
+      this.updateCharactersVotes(this.upvote, true)
+      this.updateCharactersVotes(this.kill, false)
+      this.randomizeDuel()
     },
     randomizeDuel() {
       this.gamestarted = true
       this.charactersArray = this.charactersarray
       let pos1 = Math.floor(Math.random() * this.arrayLength)
       let pos2 = Math.floor(Math.random() * this.arrayLength)
-      pos1 = Math.floor(Math.random() * this.arrayLength)
-      if (pos1 === 0 && pos2 === 0 || pos1 === pos2) {
-        pos2 = Math.floor(Math.random() * this.arrayLength)
+      if (pos1 === 0 && pos2 === 0) {
+        pos1 = Math.floor(Math.random() * 615)
+        pos2 = Math.floor(Math.random() * 615)
+      } else if (pos1 > 0 && (pos1 === pos2)) {
+        while (pos1 === pos2 && this.arrayLength > 2)
+          pos1 = Math.floor(Math.random() * 615)
       }
       this.$set(this.duel, 'a', this.charactersArray[pos1])
       this.$set(this.duel, 'b', this.charactersArray[pos2])
@@ -154,33 +162,57 @@ export default {
       this.charactersArray.splice(pos2, 1)
       this.arrayLength -= 2
       this.isSelected = false
+      this.isActive2 = false
+      this.isActive1 = false
+      this.arrayPosition = pos1
+      this.arrayPosition2 = pos2
     },
     selected(n) {
       if (n === 2) {
+        this.upvote = this.duel.b
+        this.kill = this.duel.a
         this.isActive = false
         this.isActive2 = !this.isActive2
         this.isSelected = true
       } else {
+        this.upvote = this.duel.a
+        this.kill = this.duel.b
         this.isActive2 = false
         this.isActive = !this.isActive;
         this.isSelected = true
       }
     },
     updateCharactersVotes(character, liked) { // finish first the api
+      let result
+
+
       if (liked === true) {
-        axios.get(`https://api.got.show/api/general/votes/${character}`).then(res => {
+        axios.get(`https://westerosrising-api.herokuapp.com/characters`).then(res => {
+          result = res.data.filter(e => e.name === character.name)
+
           const characterToUpdate = {
-            likes: res.votes + 1
+            name: result[0].name,
+            hates: result[0].hates,
+            likes: result[0].likes + 1
           }
-          axios.put(`https://api.got.show/api/general/votes/${character}`, characterToUpdate);
+
+          axios.put(`https://westerosrising-api.herokuapp.com/characters/${result[0].id}`, characterToUpdate).then(res => {
+            res.send(res)
+          });;
         })
 
       } else {
-        axios.get(`https://api.got.show/api/general/votes/${character}`).then(res => {
+        axios.get(`https://westerosrising-api.herokuapp.com/characters`).then(res => {
+          result = res.data.filter(e => e.name === character.name)
           const characterToUpdate = {
-            hates: res.hates + 1
+            name: result[0].name,
+            likes: result[0].likes,
+            hates: result[0].hates + 1
           }
-          axios.put(`https://api.got.show/api/general/votes/${character}`, characterToUpdate);
+
+          axios.put(`https://westerosrising-api.herokuapp.com/characters/${result[0].id}`, characterToUpdate).then(res => {
+            res.send(res)
+          });
         })
       }
     }

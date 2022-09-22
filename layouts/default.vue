@@ -27,6 +27,7 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
+    <!--Patri ha tocado el código por aquúi-->
     <v-main>
       <Nuxt />
     </v-main>

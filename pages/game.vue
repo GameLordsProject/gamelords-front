@@ -32,7 +32,19 @@ export default {
     async getAllCharacters() {
       const { data } = await axios.get(`https://api.got.show/api/general/characters/`);
       this.charactersArray = data.book
-    },
+      // const arr = []
+      // for (let i = 0; i < this.charactersArray.length; i++) {
+      //   const obj = {
+      //     name: this.charactersArray[i].name,
+      //     likes: 0,
+      //     hates: 0,
+      //     id: i
+      //   }
+      //   arr.push(obj)
+      // }
+      // console.log(JSON.stringify(arr))
+
+    }
   }
 }
 </script>

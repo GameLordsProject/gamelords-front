@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
   <v-card height="100%" class="px-9 pt-4">
     <v-card-text>
