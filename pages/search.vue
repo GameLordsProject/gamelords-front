@@ -42,6 +42,7 @@ export default {
   },
   async mounted() {
     await this.findCharacter();
+    console.log('hey')
   },
   methods: {
     search() {
@@ -55,6 +56,7 @@ export default {
       const { data } = await axios.get(`https://api.got.show/api/general/characters/${this.$route.query.q}`);
       if (data.book) {
         this.character = data.book
+        console.log(this.character)
       }
       this.loading = false
       // axios.get('https://api.got.show/api/book/houses/').then(res => {

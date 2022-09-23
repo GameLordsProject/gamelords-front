@@ -1,6 +1,9 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
-  <div>
+  <div width="100%">
+    <div class="mb-5 ml-0">
+      <h2>Who will you save?</h2>
+    </div>
     <v-card v-if="gamestarted" :class="{active: isActive}" class="mb-5 got" @click="selected()">
       <div :class="duel.a.house">
         <div v-if="duel.a.image">
@@ -16,7 +19,7 @@
         </v-card-title>
         <v-card-subtitle class="mb-4 end">
           <div v-if="doesHouseExist('a')">
-            <v-img :src="checkMyHouse()" width="50px" height="50px" class="absolute" />
+            <v-img :src="checkMyHouse(duel.a.house)" width="50px" height="50px" class="absolute" />
           </div>
           <div v-else>
             <v-img
@@ -44,7 +47,7 @@
         </v-card-title>
         <v-card-subtitle class="mb-4 end">
           <div v-if="doesHouseExist('b')">
-            <v-img :src="checkMyHouse()" width="50px" height="50px" class="absolute" />
+            <v-img :src="checkMyHouse(duel.b.house)" width="50px" height="50px" class="absolute" />
           </div>
           <div v-else>
             <v-img
@@ -57,8 +60,11 @@
         </v-card-text>
       </div>
     </v-card>
-    <v-btn v-if="!gamestarted" color="success" @click="randomizeDuel()">Start Game</v-btn>
-    <v-btn v-if="gamestarted && isSelected" color="success" @click="continueGame()">Continue</v-btn>
+    <div class="text-xs-center">
+      <v-btn v-if="!gamestarted" color="success" class="mt-5" @click="startGame()">Start
+        Game</v-btn>
+      <v-btn v-if="gamestarted && isSelected" color="success" class="mt-5" @click="continueGame()">Continue</v-btn>
+    </div>
   </div>
 </template>
 
@@ -121,23 +127,18 @@ export default {
       this.$set(this.charactersArray, i, this.charactersarray[i])
     }
     this.arrayLength = this.charactersarray.length
+
   },
   methods: {
     doesHouseExist(n) {
       if (n === 'a') {
-        return this.duel.a.house
+        return this.housesValidated.includes(this.duel.a.house)
       } else {
-        return this.duel.b.house
+        return this.housesValidated.includes(this.duel.b.house)
       }
     },
-    checkMyHouse() {
-      if (this.houseImg[`${this.duel.a.house}`]) {
-        return this.houseImg[`${this.duel.a.house}`]
-      } else if (this.houseImg[`${this.duel.b.house}`] || this.duel.b.house !== 'Westeros Rising') {
-        return this.houseImg[`${this.duel.b.house}`]
-      } else {
-        return this.houseImg.default
-      }
+    checkMyHouse(shield) {
+      return this.houseImg[shield]
     },
     continueGame() {
       this.updateCharactersVotes(this.upvote, true)
@@ -182,6 +183,9 @@ export default {
         this.isSelected = true
       }
     },
+    startGame() {
+      this.randomizeDuel()
+    },
     updateCharactersVotes(character, liked) { // finish first the api
       let result
 
@@ -197,7 +201,7 @@ export default {
           }
 
           axios.put(`https://westerosrising-api.herokuapp.com/characters/${result[0].id}`, characterToUpdate).then(res => {
-            res.send(res)
+            console.log(res)
           });;
         })
 
@@ -211,7 +215,7 @@ export default {
           }
 
           axios.put(`https://westerosrising-api.herokuapp.com/characters/${result[0].id}`, characterToUpdate).then(res => {
-            res.send(res)
+            console.log(res)
           });
         })
       }
@@ -250,23 +254,19 @@ p {
 }
 
 .Stark {
-  background-color: #353535 !important;
   border: 2px solid #808080 !important;
-
 }
 
 .Arryn {
-  background-color: #345eb1 !important;
-  border: 2px solid #cecece !important;
+  border: 2px solid #118e92 !important;
 }
 
 .Tully {
-  background-color: #04296f !important;
   border: 2px solid #af2824 !important;
 }
 
 .Greyjoy {
-  background-color: #1d1d1d !important;
+
   border: 2px solid rgb(235, 202, 20) !important;
 }
 
@@ -275,32 +275,32 @@ p {
 }
 
 .Baratheon {
-  background-color: #e3c606 !important;
+
   border: 2px solid #000000 !important;
 }
 
 .Tyrell {
-  background-color: #4e850d !important;
-  border: 2px solid #8d840a !important;
+
+  border: 2px solid #326323 !important;
 }
 
 .Martell {
-  background-color: #de890a !important;
-  border: 2px solid #8f2424 !important;
+
+  border: 2px solid #791c1c !important;
 }
 
 .Targaryen {
-  background-color: #252525 !important;
+
   border: 2px solid #770f0f !important;
 }
 
 .absolute {
   position: absolute !important;
-  margin-top: -35px;
+  margin-top: -35px !important;
 }
 
 h3,
 h2 {
-  margin-left: 25%;
+  margin-left: 25% !important;
 }
 </style>

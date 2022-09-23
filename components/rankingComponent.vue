@@ -1,0 +1,131 @@
+<!-- eslint-disable vue/first-attribute-linebreak -->
+<template>
+  <v-card class="bg my-4">
+
+    <v-card-subtitle primary-title>
+      <h4>{{votedcharacter.name}}</h4>
+      <h4>Likes: {{votedcharacter.likes}}</h4>
+      <h4>Hates: {{votedcharacter. hates}}</h4>
+      <v-btn height="20px" width="40px" class="mt-4" @click="search(votedcharacter.name)">
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+    </v-card-subtitle>
+
+  </v-card>
+</template>
+
+<script>
+
+import defaultImage from '@/assets/imgs/imgNotFound.png'
+export default {
+  name: 'RankingComponent',
+  props: {
+    // eslint-disable-next-line vue/require-default-prop
+    character: {
+      type: Object
+    },
+    // eslint-disable-next-line vue/require-default-prop
+    votedcharacter: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      switch1: true,
+      query: this.$route.query.q,
+      imageDefault: defaultImage,
+      houseImg: {
+        default: defaultImage,
+        "House Stark": require(`~/assets/shields/House Stark.png`),
+        "House Arryn": require(`~/assets/shields/House Arryn.png`),
+        "House Baratheon": require(`~/assets/shields/House Baratheon.png`),
+        "House Greyjoy": require(`~/assets/shields/House Greyjoy.png`),
+        "House Lannister": require(`~/assets/shields/House Lannister.png`),
+        "House Martell": require(`~/assets/shields/House Martell.png`),
+        "House Targaryen": require(`~/assets/shields/House Targaryen.png`),
+        "House Targaryen[1]": require(`~/assets/shields/House Targaryen.png`),
+        "House Tully": require(`~/assets/shields/House Tully.png`),
+        "House Tyrell": require(`~/assets/shields/House Tyrell.png`),
+      }
+    }
+  },
+  methods: {
+    search(param) {
+      this.$router.push({ path: "/search", query: { q: param } });
+    },
+  }
+}
+</script>
+
+<style>
+.image {
+  border-radius: 4px 4px 0px 0px;
+}
+
+p {
+  margin-left: 15px;
+}
+
+
+@font-face {
+  font-family: 'TheanoOldStyle-Regular';
+  src: url('../assets/fonts/TheanoOldStyle-Regular.ttf') format('truetype');
+}
+
+.got {
+  text-decoration: none;
+  font-family: 'TheanoOldStyle-Regular' !important;
+}
+
+.Stark {
+  border: 2px solid #808080 !important;
+
+}
+
+.Arryn {
+  border: 2px solid #cecece !important;
+}
+
+.Tully {
+  border: 2px solid #af2824 !important;
+}
+
+.Greyjoy {
+  border: 2px solid rgb(235, 202, 20) !important;
+}
+
+.Lannister {
+  border: 2px solid #af9710 !important;
+}
+
+.Baratheon {
+  border: 2px solid #000000 !important;
+}
+
+.Tyrell {
+  border: 2px solid #8d840a !important;
+}
+
+.Martell {
+  border: 2px solid #8f2424 !important;
+}
+
+.Targaryen {
+  border: 2px solid #770f0f !important;
+}
+
+.absolutes {
+  position: absolute !important;
+  margin-top: 20px !important;
+}
+
+
+.bg {
+  background-color: rgb(46, 46, 46) !important;
+}
+
+.box {
+  height: 100% !important;
+}
+</style>

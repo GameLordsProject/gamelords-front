@@ -1,58 +1,54 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
-  <v-card class="mb-5 got">
+  <v-card class="mb-5 got" elevation="5">
     <div :class="character.house">
       <div v-if="character.image">
-        <v-img class="image"
-          lazy-src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
-          :src="character.image" />
+        <v-img class="image" :lazy-src="imageDefault" :src="character.image" />
       </div>
       <div v-else class="pa-5">
         <v-img class="image" :src="imageDefault" />
       </div>
       <v-card-title class="mb-3">
-        <h2> {{character.name}}</h2>
+        <h4 class="h4"> {{character.name}}</h4>
       </v-card-title>
       <v-card-subtitle class="mb-4 end">
         <div v-if="doesHouseExist()">
           <v-img :src="checkMyHouse()" width="50px" height="50px" class="absolute" />
         </div>
         <div v-else>
-          <v-img
-            src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
-            width="50px" height="50px" class="absolute" />
+          <v-img :src="imageDefault" width="50px" height="50px" class="absolute" />
         </div>
         <h3>{{character.house}}</h3>
       </v-card-subtitle>
       <v-card-text>
-        <div v-if="character.titles.length > 0">
-          <h4>TITLES</h4>
+        <div v-if="character.titles">
+          <h5>TITLES</h5>
           <div v-for="(titles, idx) in character.titles" :key="idx">
             <p> {{titles}}</p>
           </div>
         </div>
         <div v-if="character.gender == 'male'">
-          <h4>GENDER</h4>
+          <h5>GENDER</h5>
           <p>Male</p>
         </div>
         <div v-else-if="character.gender == 'drake'">
-          <h4>GENDER</h4>
+          <h5>GENDER</h5>
           <p>Drake</p>
         </div>
         <div v-else>
-          <h4>GENDER</h4>
+          <h5>GENDER</h5>
           <p>Female</p>
         </div>
         <div v-if="character.alive">
-          <h4>STATE</h4>
+          <h5>STATE</h5>
           <p> Alive</p>
         </div>
         <div v-else>
-          <h4>STATE</h4>
+          <h5>STATE</h5>
           <p> Dead</p>
         </div>
         <div v-if="character.culture">
-          <h4>CULTURE</h4>
+          <h5>CULTURE</h5>
           <p>{{character.culture}}</p>
         </div>
       </v-card-text>
@@ -124,23 +120,19 @@ p {
 }
 
 .Stark {
-  background-color: #353535 !important;
   border: 2px solid #808080 !important;
 
 }
 
 .Arryn {
-  background-color: #345eb1 !important;
   border: 2px solid #cecece !important;
 }
 
 .Tully {
-  background-color: #04296f !important;
   border: 2px solid #af2824 !important;
 }
 
 .Greyjoy {
-  background-color: #1d1d1d !important;
   border: 2px solid rgb(235, 202, 20) !important;
 }
 
@@ -149,32 +141,29 @@ p {
 }
 
 .Baratheon {
-  background-color: #e3c606 !important;
   border: 2px solid #000000 !important;
 }
 
 .Tyrell {
-  background-color: #4e850d !important;
   border: 2px solid #8d840a !important;
 }
 
 .Martell {
-  background-color: #de890a !important;
   border: 2px solid #8f2424 !important;
 }
 
 .Targaryen {
-  background-color: #252525 !important;
   border: 2px solid #770f0f !important;
 }
 
 .absolute {
   position: absolute !important;
-  margin-top: -35px;
+  margin-top: -35px !important;
 }
 
 h3,
-h2 {
-  margin-left: 25%;
+h2,
+.h4 {
+  margin-left: 25% !important;
 }
 </style>

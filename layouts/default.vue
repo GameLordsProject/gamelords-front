@@ -24,6 +24,26 @@
               </v-list-item-title>
             </v-list-item>
           </NuxtLink>
+          <NuxtLink class="nolink" to="/game">
+            <v-list-item class="mt-5">
+              <v-list-item-icon>
+                <v-icon>mdi-gamepad-variant</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>
+                Play
+              </v-list-item-title>
+            </v-list-item>
+          </NuxtLink>
+          <NuxtLink class="nolink" to="/ranking">
+            <v-list-item class="mt-5">
+              <v-list-item-icon>
+                <v-icon>mdi-account</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>
+                Ranking
+              </v-list-item-title>
+            </v-list-item>
+          </NuxtLink>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -53,7 +73,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
 @font-face {
   font-family: 'got';
   src: url('../assets/fonts/got.ttf') format('truetype');
