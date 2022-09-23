@@ -1,69 +1,69 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
-  <div width="100%">
-    <div class="mb-5 ml-0">
-      <h2>Who will you save?</h2>
+  <div>
+    <div v-if="!gamestarted" class="mb-5 paddingGame text-h5 padding ">
+      <h4 class="got">Press the above button to play the best game of whole Westeros </h4>
     </div>
-    <v-card v-if="gamestarted" :class="{active: isActive}" class="mb-5 got" @click="selected()">
-      <div :class="duel.a.house">
-        <div v-if="duel.a.image">
-          <v-img class="image"
-            lazy-src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
-            :src="duel.a.image" />
-        </div>
-        <div v-else class="pa-5">
-          <v-img class="image" :src="imageDefault" />
-        </div>
-        <v-card-title class="mb-3">
-          <h2> {{duel.a.name}}</h2>
-        </v-card-title>
-        <v-card-subtitle class="mb-4 end">
-          <div v-if="doesHouseExist('a')">
-            <v-img :src="checkMyHouse(duel.a.house)" width="50px" height="50px" class="absolute" />
+    <div v-if="gamestarted" class="mb-5 text-center text-h5">
+      <h4 class="got">Who will you save?</h4>
+    </div>
+    <div class="paddingCard">
+      <v-card v-if="gamestarted" :class="{active: isActive}" class="mb-5 got" @click="selected()">
+        <div :class="duel.a.house" class="cardLeft" @click="continueGame()">
+          <div v-if="duel.a.image">
+            <v-img class="image" contain :src="duel.a.image" />
           </div>
-          <div v-else>
-            <v-img
-              src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
-              width="50px" height="50px" class="absolute" />
+          <div v-else class="pa-5">
+            <v-img contain class="image" :src="imageDefault" />
           </div>
-          <h3>{{duel.a.house}}</h3>
-        </v-card-subtitle>
-        <v-card-text>
-        </v-card-text>
-      </div>
-    </v-card>
-    <v-card v-if="gamestarted" id="card2" :class="{active2: isActive2}" class="mb-5 got" @click="selected(2)">
-      <div :class="duel.b.house">
-        <div v-if="duel.b.image">
-          <v-img class="image"
-            lazy-src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
-            :src="duel.b.image" />
+          <v-card-title class="mb-3">
+            <h2> {{duel.a.name}}</h2>
+          </v-card-title>
+          <v-card-subtitle class="mb-4 end">
+            <div v-if="doesHouseExist('a')">
+              <v-img :src="checkMyHouse(duel.a.house)" width="50px" height="50px" class="absolute" />
+            </div>
+            <div v-else>
+              <v-img
+                src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
+                width="50px" height="50px" class="absolute" />
+            </div>
+            <h3>{{duel.a.house}}</h3>
+          </v-card-subtitle>
         </div>
-        <div v-else class="pa-5">
-          <v-img class="image" :src="imageDefault" />
+      </v-card>
+      <v-card v-if="gamestarted" id="card2" :class="{active2: isActive2}" class="mb-5 got" @click="selected(2)">
+        <div :class="duel.b.house" class="cardRight" @click="continueGame()">
+          <div v-if="duel.b.image">
+            <v-img class="image" contain :src="duel.b.image" />
+          </div>
+          <div v-else class="pa-5">
+            <v-img contain class="image" :src="imageDefault" />
+          </div>
+          <v-card-title class="mb-3">
+            <h2> {{duel.b.name}}</h2>
+          </v-card-title>
+          <v-card-subtitle class="mb-4 end">
+            <div v-if="doesHouseExist('b')">
+              <v-img :src="checkMyHouse(duel.b.house)" width="50px" height="50px" class="absolute" />
+            </div>
+            <div v-else>
+              <v-img
+                src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
+                width="50px" height="50px" class="absolute" />
+            </div>
+            <h3>{{duel.b.house}}</h3>
+          </v-card-subtitle>
         </div>
-        <v-card-title class="mb-3">
-          <h2> {{duel.b.name}}</h2>
-        </v-card-title>
-        <v-card-subtitle class="mb-4 end">
-          <div v-if="doesHouseExist('b')">
-            <v-img :src="checkMyHouse(duel.b.house)" width="50px" height="50px" class="absolute" />
-          </div>
-          <div v-else>
-            <v-img
-              src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
-              width="50px" height="50px" class="absolute" />
-          </div>
-          <h3>{{duel.b.house}}</h3>
-        </v-card-subtitle>
-        <v-card-text>
-        </v-card-text>
-      </div>
-    </v-card>
-    <div class="text-xs-center">
-      <v-btn v-if="!gamestarted" color="success" class="mt-5" @click="startGame()">Start
+
+      </v-card>
+    </div>
+    <div align="center" justify="center">
+      <v-btn v-if="!gamestarted" color="blue" elevation="4" dark center-bottom outlined text x-large
+        class="nolink my-5 bg-color" @click="startGame()">Start
         Game</v-btn>
-      <v-btn v-if="gamestarted && isSelected" color="success" class="mt-5" @click="continueGame()">Continue</v-btn>
+      <!-- <v-btn v-if="gamestarted && isSelected" color="blue" elevation="4" dark center-bottom outlined text x-large
+        class="nolink my-5 bg-color" @click="continueGame()">Continue</v-btn> -->
     </div>
   </div>
 </template>
@@ -121,8 +121,10 @@ export default {
     }
   },
   mounted() {
+
   },
   updated() {
+    this.isSelected = false
     for (let i = 0; i < this.charactersarray.length; i++) {
       this.$set(this.charactersArray, i, this.charactersarray[i])
     }
@@ -141,6 +143,7 @@ export default {
       return this.houseImg[shield]
     },
     continueGame() {
+      console.log(this.upvote, this.kill)
       this.updateCharactersVotes(this.upvote, true)
       this.updateCharactersVotes(this.kill, false)
       this.randomizeDuel()
@@ -227,21 +230,24 @@ export default {
 <style>
 .image {
   border-radius: 4px 4px 0px 0px;
+  height: 250px;
 }
 
 p {
   margin-left: 15px;
 }
 
-.active {
-  transform: scale(1.1)
+
+
+.paddingGame {
+  padding-top: 86%;
+  margin: auto
 }
 
-
-
-.active2 {
-  transform: scale(1.1)
+.bg-color {
+  background-color: rgb(51, 51, 51);
 }
+
 
 @font-face {
   font-family: 'TheanoOldStyle-Regular';
@@ -302,5 +308,41 @@ p {
 h3,
 h2 {
   margin-left: 25% !important;
+}
+
+@media (min-width: 800px) {
+  .padding {
+    padding: 5% 15% 0 15%;
+
+  }
+
+  .paddingCard {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+  }
+
+  .cardLeft {
+    flex: 50%;
+    width: 400px;
+    height: 700px;
+  }
+
+  .cardRight {
+    flex: 50%;
+    width: 400px;
+    height: 700px;
+  }
+
+  .image {
+    height: 500px;
+  }
+
+  h4 {
+    font-size: 50px;
+    line-height: 80px;
+    margin-top: 16%;
+    margin-bottom: 20px;
+  }
 }
 </style>

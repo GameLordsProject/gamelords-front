@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-app-bar app color="#bbcccb">
-      <v-app-bar-nav-icon class="header" @click="drawer = true"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon color="#867266" @click="drawer = true"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <v-toolbar-title mr-10>
         <NuxtLink class="header" to="/">
@@ -30,14 +30,14 @@
                 <v-icon>mdi-gamepad-variant</v-icon>
               </v-list-item-icon>
               <v-list-item-title>
-                Play
+                Game
               </v-list-item-title>
             </v-list-item>
           </NuxtLink>
           <NuxtLink class="nolink" to="/ranking">
             <v-list-item class="mt-5">
               <v-list-item-icon>
-                <v-icon>mdi-account</v-icon>
+                <v-icon>mdi-podium</v-icon>
               </v-list-item-icon>
               <v-list-item-title>
                 Ranking
@@ -86,13 +86,32 @@ export default {
 .nolink {
   text-decoration: none;
   color: white !important;
-  font-family: got !important;
+  font-family: got;
 }
 
 .header {
   text-decoration: none;
+  font-family: got;
   color: #867266 !important;
-  font-family: got !important;
-  font-weight: bolder !important;
+  font-weight: bolder;
+}
+
+html::-webkit-scrollbar {
+  width: 15px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #202020;
+  border-left: 1px solid #2c2c2c;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #3e3e3e;
+  border: solid 3px #202020;
+  border-radius: 7px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: white;
 }
 </style>

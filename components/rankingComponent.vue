@@ -1,12 +1,20 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
-  <v-card class="bg my-4">
-
+  <v-card class="bg my-4 desktopRankingCards">
     <v-card-subtitle primary-title>
-      <h4>{{votedcharacter.name}}</h4>
-      <h4>Likes: {{votedcharacter.likes}}</h4>
-      <h4>Hates: {{votedcharacter. hates}}</h4>
-      <v-btn height="20px" width="40px" class="mt-4" @click="search(votedcharacter.name)">
+      <div v-if="votedcharacter.image">
+        <v-img class="image" contain max-height="300px" :src="votedcharacter.image" />
+      </div>
+      <div v-else>
+        <v-img class="image" contain max-height="300px" :src="imageDefault" />
+      </div>
+
+      <v-card-text class="extraMargin">
+        <h4 class="mt-4 ">{{votedcharacter.name}}</h4>
+        <h4>Likes: {{votedcharacter.likes}}</h4>
+        <h4>Hates: {{votedcharacter. hates}}</h4>
+      </v-card-text>
+      <v-btn height="20px" width="40px" class="mt-4 rankingButton" @click="search(votedcharacter.name)">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </v-card-subtitle>
@@ -52,8 +60,12 @@ export default {
   },
   methods: {
     search(param) {
+
       this.$router.push({ path: "/search", query: { q: param } });
     },
+  },
+  mounted() {
+    console.log(this.votedcharacter)
   }
 }
 </script>
@@ -125,7 +137,31 @@ p {
   background-color: rgb(46, 46, 46) !important;
 }
 
-.box {
-  height: 100% !important;
+
+@media (min-width: 800px) {
+  .desktopRankingCards {
+
+    margin: auto;
+    width: 400px;
+    height: auto;
+  }
+
+  .image {
+    height: 300px;
+  }
+
+  h4 {
+    font-size: 35px;
+    line-height: 5px;
+  }
+
+  .rankingButton {
+    width: 120px !important;
+    height: 60px !important;
+  }
+
+  .extraMargin {
+    margin-top: 50px !important;
+  }
 }
 </style>
