@@ -68,7 +68,7 @@ p {
 }
 
 .bg {
-  background-image: url('https://media.discordapp.net/attachments/1020282879177146368/1022793604353228810/5737742-game-thrones-wallpapers.jpg?') !important;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0.048)), url('https://media.discordapp.net/attachments/1020282879177146368/1022793604353228810/5737742-game-thrones-wallpapers.jpg?') !important;
   background-position: center;
   background-size: cover;
   /* Resize the background image to cover the entire container */

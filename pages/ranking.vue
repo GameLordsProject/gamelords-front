@@ -83,7 +83,7 @@ export default {
 }
 
 .bgRanking {
-  background-image: url('https://media.discordapp.net/attachments/1020282879177146368/1022793640910790706/168427.webp?') !important;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0.048)), url('https://media.discordapp.net/attachments/1020282879177146368/1022793640910790706/168427.webp?') !important;
   background-position: center;
   background-size: cover;
   /* Resize the background image to cover the entire container */

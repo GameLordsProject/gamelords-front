@@ -7,7 +7,7 @@
       </v-card-title>
     </div>
 
-    <v-card-text>
+    <v-card-text v-if="charactersArray">
       <GameComponent :charactersarray="charactersArray" />
     </v-card-text>
   </v-card>
@@ -35,6 +35,7 @@ export default {
       this.charactersArray = data.book
       // const arr = []
       // for (let i = 0; i < this.charactersArray.length; i++) {
+      //
       //   const obj = {
       //     name: this.charactersArray[i].name,
       //     image: this.charactersArray[i].image,
@@ -53,7 +54,7 @@ export default {
 
 <style scoped>
 .bg {
-  background-image: url('https://media.discordapp.net/attachments/1020282879177146368/1022814372902490142/GOT125-32x18-MAIN-SITE.jpg') !important;
+  background-image: linear-gradient(rgba(15, 15, 15, 0.582), rgba(15, 15, 15, 0.582)), url('https://media.discordapp.net/attachments/1020282879177146368/1022814372902490142/GOT125-32x18-MAIN-SITE.jpg') !important;
   background-position: center;
   background-size: cover;
   /* Resize the background image to cover the entire container */

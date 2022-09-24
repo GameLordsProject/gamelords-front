@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon color="#867266" @click="drawer = true"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <v-toolbar-title mr-10>
-        <NuxtLink class="header" to="/">
+        <NuxtLink class="header nolink" to="/">
           Westeros Rising
         </NuxtLink>
       </v-toolbar-title>
@@ -79,13 +79,9 @@ export default {
   src: url('../assets/fonts/got.ttf') format('truetype');
 }
 
-.navbar {
-  background-color: #ffffff !important;
-}
-
 .nolink {
   text-decoration: none;
-  color: white !important;
+  color: white;
   font-family: got;
 }
 

@@ -28,11 +28,10 @@ import defaultImage from '@/assets/imgs/imgNotFound.png'
 export default {
   name: 'RankingComponent',
   props: {
-    // eslint-disable-next-line vue/require-default-prop
     character: {
-      type: Object
+      type: Object,
+      required: true
     },
-    // eslint-disable-next-line vue/require-default-prop
     votedcharacter: {
       type: Object,
       required: true
@@ -64,9 +63,6 @@ export default {
       this.$router.push({ path: "/search", query: { q: param } });
     },
   },
-  mounted() {
-    console.log(this.votedcharacter)
-  }
 }
 </script>
 
@@ -151,8 +147,8 @@ p {
   }
 
   h4 {
-    font-size: 35px;
-    line-height: 5px;
+    font-size: 30px;
+    line-height: 1.5em;
   }
 
   .rankingButton {
