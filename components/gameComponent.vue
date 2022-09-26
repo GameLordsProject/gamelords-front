@@ -110,6 +110,7 @@ export default {
       gamestarted: false,
       housesValidated: ['House Stark', 'House Arryn', 'House Baratheon', 'House Greyjoy', 'House Lannister', 'House Lannister[1]', 'House Martell', 'House Targaryen', 'House Targaryen[1]', 'House Tully', 'House Tyrell'],
       arrayLength: 0,
+      charactersFromAPI: [],
       charactersContainer: [],
       duel: {
         a: {
@@ -146,6 +147,9 @@ export default {
     for (let i = 0; i < this.charactersarray.length; i++) {
       this.$set(this.charactersContainer, i, this.charactersarray[i])
     }
+    for (let i = 0; i < this.charactersFromOwnApi.length; i++) {
+      this.$set(this.charactersFromAPI, i, this.charactersFromOwnApi[i])
+    }
     this.arrayLength = this.charactersarray.length
 
   },
@@ -171,6 +175,7 @@ export default {
     },
     randomizeDuel() {
       this.gamestarted = true
+
       this.charactersContainer = this.charactersarray
       let pos1 = Math.floor(Math.random() * this.arrayLength)
       let pos2 = Math.floor(Math.random() * this.arrayLength)
@@ -194,9 +199,10 @@ export default {
 
     },
     updateCharactersVotes(character, liked) {
+      this.charactersFromAPI = this.charactersFromOwnApi
       let result
       if (liked === true) {
-        result = this.charactersFromOwnApi.filter(e => e.name === character)
+        result = this.charactersFromAPI.filter(e => e.name === character)
 
         const characterToUpdate = {
           name: result[0].name,
@@ -208,7 +214,7 @@ export default {
 
       } else {
 
-        result = this.charactersFromOwnApi.filter(e => e.name === character)
+        result = this.charactersFromAPI.filter(e => e.name === character)
         const characterToUpdate = {
           name: result[0].name,
           hates: result[0].hates + 1,
