@@ -8,17 +8,17 @@
     <div v-if="gamestarted" class="mb-5  text-h5">
       <h4 class="got text-center text-md-h3 ">Who will you save?</h4>
     </div>
-    <div class="paddingCard">
+    <div class="desktop--flex">
       <v-card v-if="gamestarted" :class="duel.a.house" class="mb-5 got">
         <div class="card--desktop" @click="continueGame(duel.a.name)">
           <div v-if="duel.a.image">
-            <v-img class="image" contain :src="duel.a.image" />
+            <v-img class="image" cover :src="duel.a.image" />
           </div>
           <div v-else class="pa-5">
-            <v-img contain class="image" :src="imageDefault" />
+            <v-img cover class="image" :src="imageDefault" />
           </div>
           <v-card-title class="mb-3">
-            <h2 class="ml-md-2 mt-md-4 text-md-center text-md-h3 got"> {{duel.a.name}}</h2>
+            <h2 class="ml-md-2 mt-md-4 text-md-center text-md-h3 got" justify-center> {{duel.a.name}}</h2>
           </v-card-title>
           <v-card-subtitle class="mb-4 end">
             <div v-if="doesHouseExist()">
@@ -40,13 +40,13 @@
       <v-card v-if="gamestarted" id="card2" :class="duel.b.house" class="mb-5 got">
         <div class="card--desktop" @click="continueGame(duel.b.name)">
           <div v-if="duel.b.image">
-            <v-img class="image" contain :src="duel.b.image" />
+            <v-img class="image" cover :src="duel.b.image" />
           </div>
           <div v-else class="pa-5">
-            <v-img contain class="image" :src="imageDefault" />
+            <v-img cover class="image" :src="imageDefault" />
           </div>
           <v-card-title class="mb-3">
-            <h2 class=" ml-md-2 mt-md-4  text-md-h3 got"> {{duel.b.name}}</h2>
+            <h2 class=" ml-md-2 mt-md-4  text-md-h3 got" justify-center> {{duel.b.name}}</h2>
           </v-card-title>
           <v-card-subtitle class="mb-4 end">
             <div v-if="doesHouseExist()">
@@ -204,7 +204,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+* {
+  word-break: keep-all;
+}
+
 .image {
   border-radius: 4px 4px 0px 0px;
   height: 250px;
@@ -290,10 +294,9 @@ export default {
 @media (min-width: 960px) {
   .padding {
     padding: 5% 15% 0 15%;
-
   }
 
-  .paddingCard {
+  .desktop--flex {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -301,26 +304,31 @@ export default {
 
   .card--desktop {
     flex: 50%;
-    width: 400px;
+    width: 450px;
     min-height: 700px;
+    background-color: rgba(32, 32, 32, 0);
+    border-radius: 12px;
   }
-
 
 
   .image {
     height: 500px;
   }
 
-  h3 {
+  h3,
+  h2 {
     font-size: 50px;
+    text-align: center;
     line-height: 80px;
     margin-top: 16%;
     margin-bottom: 20px;
-    margin-left: 20px
+    word-break: keep-all;
   }
 
   .abs {
-    margin-top: 50px;
+    margin-top: 0px;
+    width: 100px !important;
+    height: 100px !important;
   }
 
 }

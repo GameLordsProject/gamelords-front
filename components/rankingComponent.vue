@@ -1,25 +1,27 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
-  <v-card class="bg my-4 desktopRankingCards">
-    <v-card-subtitle primary-title>
-      <div v-if="votedcharacter.image">
-        <v-img class="image" contain max-height="300px" :src="votedcharacter.image" />
-      </div>
-      <div v-else>
-        <v-img class="image" contain max-height="300px" :src="imageDefault" />
-      </div>
+  <v-container>
+    <v-card class="bg my-4 desktopRankingCards">
+      <v-card-subtitle primary-title>
+        <div v-if="votedcharacter.image">
+          <v-img class="image" cover height="300px" :src="votedcharacter.image" />
+        </div>
+        <div v-else>
+          <v-img class="image" cover height="300px" :src="imageDefault" />
+        </div>
 
-      <v-card-text class="extraMargin">
-        <h4 class="mt-4 ">{{votedcharacter.name}}</h4>
-        <h4>Likes: {{votedcharacter.likes}}</h4>
-        <h4>Hates: {{votedcharacter. hates}}</h4>
-      </v-card-text>
-      <v-btn height="20px" width="40px" class="mt-4 rankingButton" @click="search(votedcharacter.name)">
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-    </v-card-subtitle>
+        <v-card-text class="extraMargin">
+          <h4 class="mt-4 ">{{votedcharacter.name}}</h4>
+          <h4>Likes: {{votedcharacter.likes}}</h4>
+          <h4>Hates: {{votedcharacter. hates}}</h4>
+        </v-card-text>
+        <v-btn height="30px" width="40px" class="mt-4 rankingButton" @click="search(votedcharacter.name)">
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+      </v-card-subtitle>
 
-  </v-card>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -56,6 +58,9 @@ export default {
         "House Tyrell": require(`~/assets/shields/House Tyrell.png`),
       }
     }
+  },
+  mounted() {
+    console.log(this.votedcharacter)
   },
   methods: {
     search(param) {
@@ -123,12 +128,6 @@ p {
   border: 2px solid #770f0f !important;
 }
 
-.absolutes {
-  position: absolute !important;
-  margin-top: 20px !important;
-}
-
-
 .bg {
   background-color: rgb(46, 46, 46) !important;
 }
@@ -140,10 +139,6 @@ p {
     margin: auto;
     width: 400px;
     height: auto;
-  }
-
-  .image {
-    height: 300px;
   }
 
   h4 {

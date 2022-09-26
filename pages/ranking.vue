@@ -92,7 +92,7 @@ export default {
 @media (min-width: 800px) {
   .box {
     margin: auto;
-    height: 600px !important;
+    height: 700px !important;
   }
 
   .desktop {
