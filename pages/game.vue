@@ -49,6 +49,7 @@ export default {
     },
     async getCharactersFromAPI() {
       const data = await ownAPI.getAllCharacters()
+      console.log(data)
       this.charactersFromOwnApi = data
     }
   }

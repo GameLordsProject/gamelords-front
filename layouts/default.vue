@@ -88,7 +88,7 @@
               </v-list-item-title>
             </v-list-item>
           </NuxtLink>
-          <NuxtLink class="nolink" to="/ranking">
+          <a class="nolink" target="_blank" href="https://www.github.com/westerosrisingapp">
             <v-list-item class="mt-5">
               <v-list-item-icon>
                 <v-icon>mdi-github</v-icon>
@@ -97,7 +97,7 @@
                 GitHub
               </v-list-item-title>
             </v-list-item>
-          </NuxtLink>
+          </a>
           <!-- <NuxtLink v-if="log" class="nolink" to="/login">
             <v-list-item class="mt-5">
               <v-list-item-icon>
