@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import API from '@/services/external-api.js'
 import SearcherComponent from '@/components/searcherComponent.vue'
 import dragon from '@/assets/imgs/Dragon.jpg'
 export default {
@@ -52,17 +52,11 @@ export default {
     },
     async findCharacter() {
       this.loading = true
-      // if (this.$route.query.q === null || this.$route.query.q === undefined || this.booksCharacters.filter(e => e.includes(this.$route.query.q)).length < 1) {
-      //   this.$route.query.q = "Jon Snow";
-      // }
-      const { data } = await axios.get(`https://api.got.show/api/general/characters/${this.$route.query.q}`);
-      if (data.book) {
-        this.character = data.book
+      const data = await API.findSingleCharacter(this.$route.query.q);
+      if (data) {
+        this.character = data
       }
       this.loading = false
-      // axios.get('https://api.got.show/api/book/houses/').then(res => {
-      //   console.log(JSON.stringify(res.data.map(e => e.name)))
-      // })
     }
   }
 }

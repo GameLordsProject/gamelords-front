@@ -30,9 +30,9 @@ import defaultImage from '@/assets/imgs/imgNotFound.png'
 export default {
   name: 'RankingComponent',
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     character: {
       type: Object,
-      required: true
     },
     votedcharacter: {
       type: Object,

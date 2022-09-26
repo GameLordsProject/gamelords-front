@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import API from '@/services/westeros-api.js'
 import RankingComponent from '@/components/rankingComponent.vue'
 export default {
   name: "RankingPage",
@@ -59,7 +59,7 @@ export default {
     },
     async findCharactersByVotes() {
       this.loading = true
-      const { data } = await axios.get(`https://westerosrising-api.herokuapp.com/characters`);
+      const data = await API.getAllCharacters();
 
       this.votedCharacters = data
       this.topLikes = this.votedCharacters.sort((a, b) => b.likes - a.likes)

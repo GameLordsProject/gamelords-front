@@ -78,15 +78,18 @@
       </v-card>
     </div>
     <div align="center" justify="center">
-      <v-btn v-if="!gamestarted && charactersContainer" color="white" elevation="4" dark center-bottom outlined text
-        x-large class="nolink my-5 bg-color" @click="startGame()">Start
+      <!-- islogged -->
+      <v-btn v-if="!gamestarted" color="white" elevation="4" dark center-bottom outlined text x-large
+        class="nolink my-5 bg-color" @click="startGame()">Start
         Game</v-btn>
+      <!-- <v-btn v-else color="white" elevation="4" dark center-bottom outlined text x-large class="nolink my-5 bg-color"
+        disabled @click="startGame()">You must to be <NuxtLink to="/login">Logged</NuxtLink> to play</v-btn> -->
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import API from '@/services/westeros-api.js'
 import defaultImage from '@/assets/imgs/imgNotFound.png'
 import defaultShield from '@/assets/imgs/shieldNotFound.png'
 export default {
@@ -95,7 +98,12 @@ export default {
     charactersarray: {
       type: Array,
       required: true
-    }
+    },
+    charactersFromOwnApi: {
+      type: Array,
+      required: true
+    },
+
   },
   data() {
     return {
@@ -156,9 +164,9 @@ export default {
         this.updateCharactersVotes(this.duel.b.name, true)
         this.updateCharactersVotes(this.duel.a.name, false)
       }
-      let votes = localStorage.getItem('votes')
-      votes = parseInt(votes) + 1
-      localStorage.setItem('votes', votes)
+      //  let votes = localStorage.getItem('votes')
+      this.votes = parseInt(this.votes) + 1
+      // localStorage.setItem('votes', votes)
       this.randomizeDuel()
     },
     randomizeDuel() {
@@ -182,32 +190,33 @@ export default {
     startGame() {
       this.randomizeDuel()
     },
+    islogged() {
+
+    },
     updateCharactersVotes(character, liked) {
       let result
       if (liked === true) {
-        axios.get(`https://westerosrising-api.herokuapp.com/characters`).then(res => {
-          result = res.data.filter(e => e.name === character)
+        result = this.charactersFromOwnApi.filter(e => e.name === character)
 
-          const characterToUpdate = {
-            name: result[0].name,
-            hates: result[0].hates,
-            likes: result[0].likes + 1
-          }
+        const characterToUpdate = {
+          name: result[0].name,
+          hates: result[0].hates,
+          likes: result[0].likes + 1
+        }
 
-          axios.put(`https://westerosrising-api.herokuapp.com/characters/${result[0].id}`, characterToUpdate)
-        })
+        API.updateVotes(result[0].id, characterToUpdate)
 
       } else {
-        axios.get(`https://westerosrising-api.herokuapp.com/characters`).then(res => {
-          result = res.data.filter(e => e.name === character)
-          const characterToUpdate = {
-            name: result[0].name,
-            hates: result[0].hates + 1,
-            likes: result[0].likes
-          }
 
-          axios.put(`https://westerosrising-api.herokuapp.com/characters/${result[0].id}`, characterToUpdate)
-        })
+        result = this.charactersFromOwnApi.filter(e => e.name === character)
+        const characterToUpdate = {
+          name: result[0].name,
+          hates: result[0].hates + 1,
+          likes: result[0].likes
+        }
+
+        API.updateVotes(result[0].id, characterToUpdate)
+
       }
     }
   },
