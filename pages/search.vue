@@ -1,21 +1,21 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
   <v-card height="100%" class=" px-9 pt-4 bgSearch">
-    <div class="desktop">
+    <div class="desktop extra-margin">
 
       <v-card-text class="bgInput">
-        <v-autocomplete v-model="query" placeholder="Filter a character" prepend-icon="mdi-magnify"
+        <v-autocomplete v-model="query" class="desktop" placeholder="Filter a character" prepend-icon="mdi-magnify"
           :items="booksCharacters" :loading="loading" clearable @click="search()" @keyup.enter="search()" />
       </v-card-text>
       <div>
-        <SearcherComponent :character="character" class="desktop" />
+        <SearcherComponent :character="character" />
       </div>
     </div>
   </v-card>
 </template>
 
 <script>
-import axios from 'axios'
+import API from '@/services/external-api.js'
 import SearcherComponent from '@/components/searcherComponent.vue'
 import dragon from '@/assets/imgs/Dragon.jpg'
 export default {
@@ -52,17 +52,11 @@ export default {
     },
     async findCharacter() {
       this.loading = true
-      // if (this.$route.query.q === null || this.$route.query.q === undefined || this.booksCharacters.filter(e => e.includes(this.$route.query.q)).length < 1) {
-      //   this.$route.query.q = "Jon Snow";
-      // }
-      const { data } = await axios.get(`https://api.got.show/api/general/characters/${this.$route.query.q}`);
-      if (data.book) {
-        this.character = data.book
+      const data = await API.findSingleCharacter(this.$route.query.q);
+      if (data) {
+        this.character = data
       }
       this.loading = false
-      // axios.get('https://api.got.show/api/book/houses/').then(res => {
-      //   console.log(JSON.stringify(res.data.map(e => e.name)))
-      // })
     }
   }
 }
@@ -85,18 +79,24 @@ export default {
   margin-bottom: 20px;
 }
 
-.desktop {
-  padding-top: 50px;
+.extra-margin {
+  margin-top: 50px;
+  margin-bottom: 10px;
 }
 
 @media (min-width: 800px) {
 
   .desktop {
-    padding-top: 100px;
+
     margin: auto;
     width: 600px;
   }
 
+
+  .extra-margin {
+    margin-top: 80px;
+    margin-bottom: 10px;
+  }
 
 }
 </style>
