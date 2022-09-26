@@ -1,64 +1,78 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
   <div>
-    <div v-if="!gamestarted" class="mb-5 my-md-16 paddingGame padding ">
+    <div v-if="!gamestarted" class="mb-5 my-md-16 game-p padding ">
       <h1 class="got text-center my-md-8 text-md-h3">Press the above button to play the best game of whole Westeros
       </h1>
     </div>
-    <div v-if="gamestarted" class="mb-5  text-h5">
+    <div v-if="gamestarted" class="mb-5 text-h5">
       <h4 class="got text-center text-md-h3 ">Who will you save?</h4>
     </div>
     <div class="desktop--flex">
-      <v-card v-if="gamestarted" :class="duel.a.house" class="mb-5 got">
+      <v-card v-if="gamestarted" :class="duel.a.house" class="mb-5 got card">
         <div class="card--desktop" @click="continueGame(duel.a.name)">
           <div v-if="duel.a.image">
             <v-img class="image" cover position="top" :src="duel.a.image" />
           </div>
-          <div v-else class="pa-5">
+          <div v-else>
             <v-img cover class="image" position="top" :src="imageDefault" />
           </div>
           <v-card-title class="mb-3">
             <h2 class="ml-md-2 mt-md-4 text-md-center text-md-h3 got" justify-center> {{duel.a.name}}</h2>
           </v-card-title>
-          <v-card-subtitle class="mb-4 end">
-            <div v-if="doesHouseExist(duel.a.house)">
-              <v-img :src="checkMyHouse(duel.a.house)" width="50px" height="50px" class="abs" />
-            </div>
-            <div v-else>
-              <v-img :src="shieldDefault" width="50px" height="50px" class="abs" />
-            </div>
-            <h3 v-if="duel.a.house" class="text-md-h2 got">{{duel.a.house}}</h3>
-            <h3 v-else class="text-md-h2 got">
-              House of westeros
-            </h3>
-          </v-card-subtitle>
+          <v-card-text class="mb-4">
+            <v-container>
+              <v-row>
+                <v-col cols="4">
+                  <div v-if="doesHouseExist(duel.a.house)">
+                    <v-img :src="checkMyHouse(duel.a.house)" width="50px" height="50px" class="abs" />
+                  </div>
+                  <div v-else>
+                    <v-img :src="shieldDefault" width="50px" height="50px" class="abs" />
+                  </div>
+                </v-col>
+
+                <v-col cols="8">
+                  <h3 v-if="duel.a.house" class="text-md-h2 ma-0 got">{{duel.a.house}}</h3>
+                  <h3 v-else class="text-md-h2 ma-0 got">House of westeros</h3>
+                </v-col>
+              </v-row>
+
+            </v-container>
+          </v-card-text>
         </div>
       </v-card>
-      <v-card v-if="gamestarted" id="card2" :class="duel.b.house" class="mb-5 got">
+      <v-card v-if="gamestarted" id="card2" :class="duel.b.house" class="mb-5 got card">
         <div class="card--desktop" @click="continueGame(duel.b.name)">
           <div v-if="duel.b.image">
             <v-img class="image" cover position="top" :src="duel.b.image" />
           </div>
-          <div v-else class="pa-5">
+          <div v-else>
             <v-img cover class="image" position="top" :src="imageDefault" />
           </div>
           <v-card-title class="mb-3">
             <h2 class=" ml-md-2 mt-md-4  text-md-h3 got" justify-center> {{duel.b.name}}</h2>
           </v-card-title>
-          <v-card-subtitle class="mb-4 end">
-            <div v-if="doesHouseExist(duel.b.house)">
-              <v-img :src="checkMyHouse(duel.b.house)" width="50px" height="50px" class="abs" />
-            </div>
-            <div v-else>
-              <v-img :src="shieldDefault" width="50px" height="50px" class="abs" />
-            </div>
-            <h3 v-if="duel.b.house" class="text-md-h2 got">
-              {{duel.b.house}}
-            </h3>
-            <h3 v-else class="text-md-h2 got">
-              House of westeros
-            </h3>
-          </v-card-subtitle>
+          <v-card-text class="mb-4">
+            <v-container>
+              <v-row>
+                <v-col cols="4">
+                  <div v-if="doesHouseExist(duel.b.house)">
+                    <v-img :src="checkMyHouse(duel.b.house)" width="50px" height="50px" class="abs" />
+                  </div>
+                  <div v-else>
+                    <v-img :src="shieldDefault" width="50px" height="50px" class="abs" />
+                  </div>
+                </v-col>
+
+                <v-col cols="8">
+                  <h3 v-if="duel.b.house" class="text-md-h2 ma-0 got">{{duel.b.house}}</h3>
+                  <h3 v-else class="text-md-h2 ma-0 got">House of westeros</h3>
+                </v-col>
+              </v-row>
+
+            </v-container>
+          </v-card-text>
         </div>
 
       </v-card>
@@ -142,6 +156,9 @@ export default {
         this.updateCharactersVotes(this.duel.b.name, true)
         this.updateCharactersVotes(this.duel.a.name, false)
       }
+      let votes = localStorage.getItem('votes')
+      votes = parseInt(votes) + 1
+      localStorage.setItem('votes', votes)
       this.randomizeDuel()
     },
     randomizeDuel() {
@@ -177,9 +194,7 @@ export default {
             likes: result[0].likes + 1
           }
 
-          axios.put(`https://westerosrising-api.herokuapp.com/characters/${result[0].id}`, characterToUpdate).then(res => {
-            console.log(res.data)
-          });;
+          axios.put(`https://westerosrising-api.herokuapp.com/characters/${result[0].id}`, characterToUpdate)
         })
 
       } else {
@@ -191,9 +206,7 @@ export default {
             likes: result[0].likes
           }
 
-          axios.put(`https://westerosrising-api.herokuapp.com/characters/${result[0].id}`, characterToUpdate).then(res => {
-            console.log(res.data)
-          });
+          axios.put(`https://westerosrising-api.herokuapp.com/characters/${result[0].id}`, characterToUpdate)
         })
       }
     }
@@ -211,7 +224,7 @@ export default {
   height: 250px;
 }
 
-.paddingGame {
+.game-p {
   padding-top: 28vh;
   line-height: 2rem;
   margin: auto
@@ -219,6 +232,12 @@ export default {
 
 .bg-color {
   background-color: rgb(51, 51, 51);
+}
+
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
 }
 
 
@@ -281,13 +300,6 @@ export default {
   border: 2px solid #770f0f !important;
 }
 
-.abs {
-  position: absolute;
-  margin-top: -35px;
-}
-
-
-
 @media (min-width: 960px) {
   .padding {
     padding: 5% 15% 0 15%;
@@ -301,29 +313,23 @@ export default {
 
   .card--desktop {
     flex: 50%;
-    width: 450px;
+    width: 500px;
     min-height: 700px;
     background-color: rgba(32, 32, 32, 0);
     border-radius: 12px;
   }
 
+  .card:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
 
   .image {
     height: 500px;
   }
 
-  h3,
-  h2 {
-    font-size: 50px;
-    text-align: center;
-    line-height: 80px;
-    margin-top: 16%;
-    margin-bottom: 20px;
-    word-break: keep-all;
-  }
-
   .abs {
-    margin-top: 0px;
+
     width: 100px !important;
     height: 100px !important;
   }

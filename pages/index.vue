@@ -9,13 +9,13 @@
       </v-card-title>
 
       <v-card-subtitle class="mt-8  mt-md-8 mx-md-16 text-h6 text-md-h4">
-        <p>The best site of Game of Thrones, where You can discover westeros and its
-          characters</p>
+        <h4>The best site of Game of Thrones, where You can discover westeros and its
+          characters</h4>
       </v-card-subtitle>
 
       <v-card-text>
 
-        <v-text-field v-model="searchedText" class="mx-5 mx-md-16 " name="name" prepend-icon="mdi-magnify"
+        <v-text-field v-model="searchedText" class="mx-5 mx-md-16 my-5 " name="name" prepend-icon="mdi-magnify"
           placeholder="Search your desired character" @keyup.enter="search()">
         </v-text-field>
 
@@ -23,10 +23,10 @@
 
 
       <v-card-subtitle class="justify-center mx-md-16 text-h6  text-md-h4">
-        <p>Or Play which character would You save with our awesome card selection game</p>
+        <h4>Or Play which character would You save with our awesome card selection game</h4>
       </v-card-subtitle>
       <div align="center" justify="center">
-        <v-btn color="blue" elevation="4" dark center-bottom outlined text x-large class="nolink my-5 bg-color"
+        <v-btn color="white" elevation="4" dark center-bottom outlined text x-large class="nolink my-5 bg-color"
           @click="sendMeToPlay()">
           GAME
         </v-btn>
@@ -78,10 +78,14 @@ p {
   background-color: rgb(51, 51, 51);
 }
 
+.padding {
+  padding-top: 50px;
+}
 
 @media (min-width: 800px) {
   .padding {
-    padding: 5% 20% 0 20%;
+    padding: 100px 20% 0 20%;
+    font-family: 'TheanoOldStyle-Regular';
   }
 }
 </style>
