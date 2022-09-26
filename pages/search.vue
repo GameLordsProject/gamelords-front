@@ -1,14 +1,14 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
   <v-card height="100%" class=" px-9 pt-4 bgSearch">
-    <div class="desktop">
+    <div class="desktop extra-margin">
 
       <v-card-text class="bgInput">
-        <v-autocomplete v-model="query" placeholder="Filter a character" prepend-icon="mdi-magnify"
+        <v-autocomplete v-model="query" class="desktop" placeholder="Filter a character" prepend-icon="mdi-magnify"
           :items="booksCharacters" :loading="loading" clearable @click="search()" @keyup.enter="search()" />
       </v-card-text>
       <div>
-        <SearcherComponent :character="character" class="desktop" />
+        <SearcherComponent :character="character" />
       </div>
     </div>
   </v-card>
@@ -79,18 +79,24 @@ export default {
   margin-bottom: 20px;
 }
 
-.desktop {
-  padding-top: 50px;
+.extra-margin {
+  margin-top: 50px;
+  margin-bottom: 10px;
 }
 
 @media (min-width: 800px) {
 
   .desktop {
-    padding-top: 100px;
+
     margin: auto;
     width: 600px;
   }
 
+
+  .extra-margin {
+    margin-top: 80px;
+    margin-bottom: 10px;
+  }
 
 }
 </style>

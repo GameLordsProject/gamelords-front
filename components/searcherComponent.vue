@@ -1,16 +1,16 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
 
-  <v-card class="mb-5 got card--desktop" elevation="5">
-    <div :class="character.house">
+  <v-card class=" got card--desktop" elevation="5">
+    <div :class="character.house" class="mt-0">
       <div v-if="character.image">
-        <v-img class="image" :lazy-src="imageDefault" :src="character.image" />
+        <v-img class="image mt-0" max-height="620px" :lazy-src="imageDefault" :src="character.image" />
       </div>
       <div v-else>
-        <v-img class="image" :src="imageDefault" />
+        <v-img class="image mt-0" max-height="300px" :src="imageDefault" />
       </div>
-      <v-card-title class="mb-3">
-        <h4 class="h4"> {{character.name}}</h4>
+      <v-card-title class="mb-8">
+        <h4 class="h4 text-md-h3"> {{character.name}}</h4>
       </v-card-title>
       <v-card-subtitle class="mb-4 end">
         <div v-if="doesHouseExist()">
@@ -19,7 +19,7 @@
         <div v-else>
           <v-img :src="shieldDefault" width="50px" height="50px" class="absolute" />
         </div>
-        <h3>{{character.house}}</h3>
+        <h2>{{character.house}}</h2>
       </v-card-subtitle>
       <v-card-text>
         <div v-if="checkMyTitles()">
@@ -109,9 +109,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .image {
   border-radius: 4px 4px 0px 0px;
+  margin-top: 0;
+  object-position: top !important;
 }
 
 p {
@@ -177,9 +179,6 @@ h2 {
 }
 
 @media (min-width: 800px) {
-
-
-
 
   .card--desktop {
     margin: auto;
