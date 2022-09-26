@@ -85,9 +85,14 @@ export default {
   margin-bottom: 20px;
 }
 
+.desktop {
+  padding-top: 50px;
+}
+
 @media (min-width: 800px) {
 
   .desktop {
+    padding-top: 100px;
     margin: auto;
     width: 600px;
   }

@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
-  <v-card height="100%" class="px-9 pt-4 bgRanking">
-    <div class="desktop">
+  <v-card height="100%" class="px-9 pt-4 bg-ranking">
+    <div class="padding-extra">
       <v-card-title>
         <h2 class="got">Ranking</h2>
       </v-card-title>
@@ -10,14 +10,14 @@
         <v-text-field v-model="inputText" placeholder="Filter a character" prepend-icon="mdi-magnify" class="got"
           :loading="loading" clearable />
       </v-card-text>
-      <div>
-        <v-switch v-model="switch1" :label="`Show All`"></v-switch>
-        <div class="box">
-          <RankingComponent v-for="(votedcharacter, idx) in filterMyCharacter" :key="idx"
-            :votedcharacter="votedcharacter">
-          </RankingComponent>
-        </div>
+
+      <v-switch v-model="switch1" class="mt-sm-and-down-0" :label="`Show All`"></v-switch>
+      <div class="box">
+        <RankingComponent v-for="(votedcharacter, idx) in filterMyCharacter" :key="idx"
+          :votedcharacter="votedcharacter">
+        </RankingComponent>
       </div>
+
     </div>
   </v-card>
 </template>
@@ -82,11 +82,17 @@ export default {
   border-radius: 12px;
 }
 
-.bgRanking {
+.bg-ranking {
   background-image: linear-gradient(rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0.048)), url('https://media.discordapp.net/attachments/1020282879177146368/1022793640910790706/168427.webp?') !important;
   background-position: center;
   background-size: cover;
   /* Resize the background image to cover the entire container */
+}
+
+
+.padding-extra {
+  padding-top: 50px;
+  margin: auto;
 }
 
 @media (min-width: 800px) {
@@ -95,8 +101,9 @@ export default {
     height: 700px !important;
   }
 
-  .desktop {
+  .padding-extra {
     width: 60%;
+    padding-top: 100px;
     margin: auto;
   }
 

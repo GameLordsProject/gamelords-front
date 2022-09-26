@@ -6,7 +6,7 @@
       <div v-if="character.image">
         <v-img class="image" :lazy-src="imageDefault" :src="character.image" />
       </div>
-      <div v-else class="pa-5">
+      <div v-else>
         <v-img class="image" :src="imageDefault" />
       </div>
       <v-card-title class="mb-3">
@@ -179,7 +179,7 @@ h2 {
 @media (min-width: 800px) {
 
 
-  .absolute {}
+
 
   .card--desktop {
     margin: auto;

@@ -1,21 +1,21 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
   <v-container>
-    <v-card class="bg my-4 desktopRankingCards">
+    <v-card class="bg my-4 desktop-ranking-cards">
       <v-card-subtitle primary-title>
         <div v-if="votedcharacter.image">
-          <v-img class="image" cover height="300px" :src="votedcharacter.image" />
+          <v-img height="300px" :src="votedcharacter.image" />
         </div>
         <div v-else>
-          <v-img class="image" cover height="300px" :src="imageDefault" />
+          <v-img height="300px" :src="imageDefault" />
         </div>
 
-        <v-card-text class="extraMargin">
-          <h4 class="mt-4 ">{{votedcharacter.name}}</h4>
+        <v-card-text class="extra-margin">
+          <h4 class="mt-2 ">{{votedcharacter.name}}</h4>
           <h4>Likes: {{votedcharacter.likes}}</h4>
           <h4>Hates: {{votedcharacter. hates}}</h4>
         </v-card-text>
-        <v-btn height="30px" width="40px" class="mt-4 rankingButton" @click="search(votedcharacter.name)">
+        <v-btn height="30px" width="40px" class="mt-4 ranking-button" @click="search(votedcharacter.name)">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
       </v-card-subtitle>
@@ -59,9 +59,6 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log(this.votedcharacter)
-  },
   methods: {
     search(param) {
 
@@ -71,16 +68,7 @@ export default {
 }
 </script>
 
-<style>
-.image {
-  border-radius: 4px 4px 0px 0px;
-}
-
-p {
-  margin-left: 15px;
-}
-
-
+<style scoped>
 @font-face {
   font-family: 'TheanoOldStyle-Regular';
   src: url('../assets/fonts/TheanoOldStyle-Regular.ttf') format('truetype');
@@ -134,7 +122,7 @@ p {
 
 
 @media (min-width: 800px) {
-  .desktopRankingCards {
+  .desktop-ranking-cards {
 
     margin: auto;
     width: 400px;
@@ -146,12 +134,12 @@ p {
     line-height: 1.5em;
   }
 
-  .rankingButton {
+  .ranking-button {
     width: 120px !important;
     height: 60px !important;
   }
 
-  .extraMargin {
+  .extra-margin {
     margin-top: 50px !important;
   }
 }
