@@ -34,6 +34,8 @@ export default {
   updated() {
     if (parseInt(localStorage.votes) > 0) {
       this.votes = parseInt(localStorage.votes)
+    } else {
+      localStorage.votes = 0
     }
   },
   methods: {
