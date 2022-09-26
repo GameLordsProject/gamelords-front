@@ -12,23 +12,20 @@
       <v-card v-if="gamestarted" :class="duel.a.house" class="mb-5 got">
         <div class="card--desktop" @click="continueGame(duel.a.name)">
           <div v-if="duel.a.image">
-            <v-img class="image" cover :src="duel.a.image" />
+            <v-img class="image" cover position="top" :src="duel.a.image" />
           </div>
           <div v-else class="pa-5">
-            <v-img cover class="image" :src="imageDefault" />
+            <v-img cover class="image" position="top" :src="imageDefault" />
           </div>
           <v-card-title class="mb-3">
             <h2 class="ml-md-2 mt-md-4 text-md-center text-md-h3 got" justify-center> {{duel.a.name}}</h2>
           </v-card-title>
           <v-card-subtitle class="mb-4 end">
-            <div v-if="doesHouseExist()">
+            <div v-if="doesHouseExist(duel.a.house)">
               <v-img :src="checkMyHouse(duel.a.house)" width="50px" height="50px" class="abs" />
             </div>
             <div v-else>
-
-              <v-img
-                src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
-                width="50px" height="50px" class="abs" />
+              <v-img :src="shieldDefault" width="50px" height="50px" class="abs" />
             </div>
             <h3 v-if="duel.a.house" class="text-md-h2 got">{{duel.a.house}}</h3>
             <h3 v-else class="text-md-h2 got">
@@ -40,22 +37,20 @@
       <v-card v-if="gamestarted" id="card2" :class="duel.b.house" class="mb-5 got">
         <div class="card--desktop" @click="continueGame(duel.b.name)">
           <div v-if="duel.b.image">
-            <v-img class="image" cover :src="duel.b.image" />
+            <v-img class="image" cover position="top" :src="duel.b.image" />
           </div>
           <div v-else class="pa-5">
-            <v-img cover class="image" :src="imageDefault" />
+            <v-img cover class="image" position="top" :src="imageDefault" />
           </div>
           <v-card-title class="mb-3">
             <h2 class=" ml-md-2 mt-md-4  text-md-h3 got" justify-center> {{duel.b.name}}</h2>
           </v-card-title>
           <v-card-subtitle class="mb-4 end">
-            <div v-if="doesHouseExist()">
+            <div v-if="doesHouseExist(duel.b.house)">
               <v-img :src="checkMyHouse(duel.b.house)" width="50px" height="50px" class="abs" />
             </div>
             <div v-else>
-              <v-img
-                src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
-                width="50px" height="50px" class="abs" />
+              <v-img :src="shieldDefault" width="50px" height="50px" class="abs" />
             </div>
             <h3 v-if="duel.b.house" class="text-md-h2 got">
               {{duel.b.house}}
@@ -79,6 +74,7 @@
 <script>
 import axios from 'axios'
 import defaultImage from '@/assets/imgs/imgNotFound.png'
+import defaultShield from '@/assets/imgs/shieldNotFound.png'
 export default {
   name: 'GameComponent',
   props: {
@@ -90,7 +86,7 @@ export default {
   data() {
     return {
       gamestarted: false,
-      housesValidated: ['House Stark', 'House Arryn', 'House Baratheon', 'House Greyjoy', 'House Lannister', 'House Martell', 'House Targaryen', 'House Targaryen[1]', 'House Tully', 'House Tyrell'],
+      housesValidated: ['House Stark', 'House Arryn', 'House Baratheon', 'House Greyjoy', 'House Lannister', 'House Lannister[1]', 'House Martell', 'House Targaryen', 'House Targaryen[1]', 'House Tully', 'House Tyrell'],
       arrayLength: 0,
       charactersContainer: [],
       duel: {
@@ -107,6 +103,7 @@ export default {
           gender: 'drake',
         }
       },
+      shieldDefault: defaultShield,
       imageDefault: defaultImage,
       houseImg: {
         default: defaultImage,
@@ -131,8 +128,8 @@ export default {
 
   },
   methods: {
-    doesHouseExist() {
-      return this.housesValidated.includes(this.duel.a.house || this.duel.b.house)
+    doesHouseExist(house) {
+      return this.housesValidated.includes(house)
     },
     checkMyHouse(shield) {
       return this.houseImg[shield]

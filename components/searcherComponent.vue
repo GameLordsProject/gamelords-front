@@ -17,7 +17,7 @@
           <v-img :src="checkMyHouse()" width="50px" height="50px" class="absolute" />
         </div>
         <div v-else>
-          <v-img :src="imageDefault" width="50px" height="50px" class="absolute" />
+          <v-img :src="shieldDefault" width="50px" height="50px" class="absolute" />
         </div>
         <h3>{{character.house}}</h3>
       </v-card-subtitle>
@@ -61,6 +61,7 @@
 <script>
 
 import defaultImage from '@/assets/imgs/imgNotFound.png'
+import defaultShield from '@/assets/imgs/shieldNotFound.png'
 export default {
   name: 'SearcherComponent',
   props: {
@@ -72,8 +73,10 @@ export default {
   data() {
     return {
       imageDefault: defaultImage,
+      shieldDefault: defaultShield,
+      housesValidated: ['House Stark', 'House Arryn', 'House Baratheon', 'House Greyjoy', 'House Lannister', 'House Martell', 'House Targaryen', 'House Targaryen[1]', 'House Tully', 'House Tyrell'],
       houseImg: {
-        default: defaultImage,
+        default: defaultShield,
         "House Stark": require(`~/assets/shields/House Stark.png`),
         "House Arryn": require(`~/assets/shields/House Arryn.png`),
         "House Baratheon": require(`~/assets/shields/House Baratheon.png`),
@@ -89,12 +92,14 @@ export default {
   },
   methods: {
     doesHouseExist() {
-      return this.character.house
+      return this.housesValidated.includes(this.character.house)
     },
     checkMyHouse() {
+
       if (this.houseImg[`${this.character.house}`] || this.character.house !== 'Westeros Rising') {
         return this.houseImg[`${this.character.house}`]
       }
+
       return this.houseImg.default
     },
     checkMyTitles() {
