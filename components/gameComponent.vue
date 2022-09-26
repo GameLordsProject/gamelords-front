@@ -1,69 +1,77 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
-  <div width="100%">
-    <div class="mb-5 ml-0">
-      <h2>Who will you save?</h2>
+  <div>
+    <div v-if="!gamestarted" class="mb-5 my-md-16 paddingGame padding ">
+      <h1 class="got text-center my-md-8 text-md-h3">Press the above button to play the best game of whole Westeros
+      </h1>
     </div>
-    <v-card v-if="gamestarted" :class="{active: isActive}" class="mb-5 got" @click="selected()">
-      <div :class="duel.a.house">
-        <div v-if="duel.a.image">
-          <v-img class="image"
-            lazy-src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
-            :src="duel.a.image" />
-        </div>
-        <div v-else class="pa-5">
-          <v-img class="image" :src="imageDefault" />
-        </div>
-        <v-card-title class="mb-3">
-          <h2> {{duel.a.name}}</h2>
-        </v-card-title>
-        <v-card-subtitle class="mb-4 end">
-          <div v-if="doesHouseExist('a')">
-            <v-img :src="checkMyHouse(duel.a.house)" width="50px" height="50px" class="absolute" />
+    <div v-if="gamestarted" class="mb-5  text-h5">
+      <h4 class="got text-center text-md-h3 ">Who will you save?</h4>
+    </div>
+    <div class="desktop--flex">
+      <v-card v-if="gamestarted" :class="duel.a.house" class="mb-5 got">
+        <div class="card--desktop" @click="continueGame(duel.a.name)">
+          <div v-if="duel.a.image">
+            <v-img class="image" cover :src="duel.a.image" />
           </div>
-          <div v-else>
-            <v-img
-              src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
-              width="50px" height="50px" class="absolute" />
+          <div v-else class="pa-5">
+            <v-img cover class="image" :src="imageDefault" />
           </div>
-          <h3>{{duel.a.house}}</h3>
-        </v-card-subtitle>
-        <v-card-text>
-        </v-card-text>
-      </div>
-    </v-card>
-    <v-card v-if="gamestarted" id="card2" :class="{active2: isActive2}" class="mb-5 got" @click="selected(2)">
-      <div :class="duel.b.house">
-        <div v-if="duel.b.image">
-          <v-img class="image"
-            lazy-src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
-            :src="duel.b.image" />
+          <v-card-title class="mb-3">
+            <h2 class="ml-md-2 mt-md-4 text-md-center text-md-h3 got" justify-center> {{duel.a.name}}</h2>
+          </v-card-title>
+          <v-card-subtitle class="mb-4 end">
+            <div v-if="doesHouseExist()">
+              <v-img :src="checkMyHouse(duel.a.house)" width="50px" height="50px" class="abs" />
+            </div>
+            <div v-else>
+
+              <v-img
+                src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
+                width="50px" height="50px" class="abs" />
+            </div>
+            <h3 v-if="duel.a.house" class="text-md-h2 got">{{duel.a.house}}</h3>
+            <h3 v-else class="text-md-h2 got">
+              House of westeros
+            </h3>
+          </v-card-subtitle>
         </div>
-        <div v-else class="pa-5">
-          <v-img class="image" :src="imageDefault" />
+      </v-card>
+      <v-card v-if="gamestarted" id="card2" :class="duel.b.house" class="mb-5 got">
+        <div class="card--desktop" @click="continueGame(duel.b.name)">
+          <div v-if="duel.b.image">
+            <v-img class="image" cover :src="duel.b.image" />
+          </div>
+          <div v-else class="pa-5">
+            <v-img cover class="image" :src="imageDefault" />
+          </div>
+          <v-card-title class="mb-3">
+            <h2 class=" ml-md-2 mt-md-4  text-md-h3 got" justify-center> {{duel.b.name}}</h2>
+          </v-card-title>
+          <v-card-subtitle class="mb-4 end">
+            <div v-if="doesHouseExist()">
+              <v-img :src="checkMyHouse(duel.b.house)" width="50px" height="50px" class="abs" />
+            </div>
+            <div v-else>
+              <v-img
+                src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
+                width="50px" height="50px" class="abs" />
+            </div>
+            <h3 v-if="duel.b.house" class="text-md-h2 got">
+              {{duel.b.house}}
+            </h3>
+            <h3 v-else class="text-md-h2 got">
+              House of westeros
+            </h3>
+          </v-card-subtitle>
         </div>
-        <v-card-title class="mb-3">
-          <h2> {{duel.b.name}}</h2>
-        </v-card-title>
-        <v-card-subtitle class="mb-4 end">
-          <div v-if="doesHouseExist('b')">
-            <v-img :src="checkMyHouse(duel.b.house)" width="50px" height="50px" class="absolute" />
-          </div>
-          <div v-else>
-            <v-img
-              src="https://play-lh.googleusercontent.com/RJYi6ttJq2GxcXsqN5k5ElnH26p9g1c6AcA_zKv_zrstaj_heNH1WDh8oYjbBH1Ps3I"
-              width="50px" height="50px" class="absolute" />
-          </div>
-          <h3>{{duel.b.house}}</h3>
-        </v-card-subtitle>
-        <v-card-text>
-        </v-card-text>
-      </div>
-    </v-card>
-    <div class="text-xs-center">
-      <v-btn v-if="!gamestarted" color="success" class="mt-5" @click="startGame()">Start
+
+      </v-card>
+    </div>
+    <div align="center" justify="center">
+      <v-btn v-if="!gamestarted && charactersContainer" color="white" elevation="4" dark center-bottom outlined text
+        x-large class="nolink my-5 bg-color" @click="startGame()">Start
         Game</v-btn>
-      <v-btn v-if="gamestarted && isSelected" color="success" class="mt-5" @click="continueGame()">Continue</v-btn>
     </div>
   </div>
 </template>
@@ -74,9 +82,9 @@ import defaultImage from '@/assets/imgs/imgNotFound.png'
 export default {
   name: 'GameComponent',
   props: {
-    // eslint-disable-next-line vue/require-default-prop
     charactersarray: {
-      type: Array
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -84,12 +92,7 @@ export default {
       gamestarted: false,
       housesValidated: ['House Stark', 'House Arryn', 'House Baratheon', 'House Greyjoy', 'House Lannister', 'House Martell', 'House Targaryen', 'House Targaryen[1]', 'House Tully', 'House Tyrell'],
       arrayLength: 0,
-      isActive: false,
-      isActive2: false,
-      isSelected: false,
-      arrayPosition: 0,
-      arrayPosition2: 0,
-      charactersArray: [],
+      charactersContainer: [],
       duel: {
         a: {
           image: defaultImage,
@@ -120,34 +123,33 @@ export default {
       }
     }
   },
-  mounted() {
-  },
   updated() {
     for (let i = 0; i < this.charactersarray.length; i++) {
-      this.$set(this.charactersArray, i, this.charactersarray[i])
+      this.$set(this.charactersContainer, i, this.charactersarray[i])
     }
     this.arrayLength = this.charactersarray.length
 
   },
   methods: {
-    doesHouseExist(n) {
-      if (n === 'a') {
-        return this.housesValidated.includes(this.duel.a.house)
-      } else {
-        return this.housesValidated.includes(this.duel.b.house)
-      }
+    doesHouseExist() {
+      return this.housesValidated.includes(this.duel.a.house || this.duel.b.house)
     },
     checkMyHouse(shield) {
       return this.houseImg[shield]
     },
-    continueGame() {
-      this.updateCharactersVotes(this.upvote, true)
-      this.updateCharactersVotes(this.kill, false)
+    continueGame(winner) {
+      if (winner === this.duel.a.name) {
+        this.updateCharactersVotes(this.duel.a.name, true)
+        this.updateCharactersVotes(this.duel.b.name, false)
+      } else {
+        this.updateCharactersVotes(this.duel.b.name, true)
+        this.updateCharactersVotes(this.duel.a.name, false)
+      }
       this.randomizeDuel()
     },
     randomizeDuel() {
       this.gamestarted = true
-      this.charactersArray = this.charactersarray
+      this.charactersContainer = this.charactersarray
       let pos1 = Math.floor(Math.random() * this.arrayLength)
       let pos2 = Math.floor(Math.random() * this.arrayLength)
       if (pos1 === 0 && pos2 === 0) {
@@ -157,42 +159,20 @@ export default {
         while (pos1 === pos2 && this.arrayLength > 2)
           pos1 = Math.floor(Math.random() * 615)
       }
-      this.$set(this.duel, 'a', this.charactersArray[pos1])
-      this.$set(this.duel, 'b', this.charactersArray[pos2])
-      this.charactersArray.splice(pos1, 1)
-      this.charactersArray.splice(pos2, 1)
+      this.$set(this.duel, 'a', this.charactersContainer[pos1])
+      this.$set(this.duel, 'b', this.charactersContainer[pos2])
+      this.charactersContainer.splice(pos1, 1)
+      this.charactersContainer.splice(pos2, 1)
       this.arrayLength -= 2
-      this.isSelected = false
-      this.isActive2 = false
-      this.isActive1 = false
-      this.arrayPosition = pos1
-      this.arrayPosition2 = pos2
-    },
-    selected(n) {
-      if (n === 2) {
-        this.upvote = this.duel.b
-        this.kill = this.duel.a
-        this.isActive = false
-        this.isActive2 = !this.isActive2
-        this.isSelected = true
-      } else {
-        this.upvote = this.duel.a
-        this.kill = this.duel.b
-        this.isActive2 = false
-        this.isActive = !this.isActive;
-        this.isSelected = true
-      }
     },
     startGame() {
       this.randomizeDuel()
     },
-    updateCharactersVotes(character, liked) { // finish first the api
+    updateCharactersVotes(character, liked) {
       let result
-
-
       if (liked === true) {
         axios.get(`https://westerosrising-api.herokuapp.com/characters`).then(res => {
-          result = res.data.filter(e => e.name === character.name)
+          result = res.data.filter(e => e.name === character)
 
           const characterToUpdate = {
             name: result[0].name,
@@ -201,21 +181,21 @@ export default {
           }
 
           axios.put(`https://westerosrising-api.herokuapp.com/characters/${result[0].id}`, characterToUpdate).then(res => {
-            console.log(res)
+            console.log(res.data)
           });;
         })
 
       } else {
         axios.get(`https://westerosrising-api.herokuapp.com/characters`).then(res => {
-          result = res.data.filter(e => e.name === character.name)
+          result = res.data.filter(e => e.name === character)
           const characterToUpdate = {
             name: result[0].name,
-            likes: result[0].likes,
-            hates: result[0].hates + 1
+            hates: result[0].hates + 1,
+            likes: result[0].likes
           }
 
           axios.put(`https://westerosrising-api.herokuapp.com/characters/${result[0].id}`, characterToUpdate).then(res => {
-            console.log(res)
+            console.log(res.data)
           });
         })
       }
@@ -224,24 +204,26 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+* {
+  word-break: keep-all;
+}
+
 .image {
   border-radius: 4px 4px 0px 0px;
+  height: 250px;
 }
 
-p {
-  margin-left: 15px;
+.paddingGame {
+  padding-top: 28vh;
+  line-height: 2rem;
+  margin: auto
 }
 
-.active {
-  transform: scale(1.1)
+.bg-color {
+  background-color: rgb(51, 51, 51);
 }
 
-
-
-.active2 {
-  transform: scale(1.1)
-}
 
 @font-face {
   font-family: 'TheanoOldStyle-Regular';
@@ -294,13 +276,60 @@ p {
   border: 2px solid #770f0f !important;
 }
 
-.absolute {
-  position: absolute !important;
-  margin-top: -35px !important;
+.true {
+  border: 2px solid #770f0f !important;
 }
 
-h3,
-h2 {
-  margin-left: 25% !important;
+.false {
+  border: 2px solid #770f0f !important;
+}
+
+.abs {
+  position: absolute;
+  margin-top: -35px;
+}
+
+
+
+@media (min-width: 960px) {
+  .padding {
+    padding: 5% 15% 0 15%;
+  }
+
+  .desktop--flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .card--desktop {
+    flex: 50%;
+    width: 450px;
+    min-height: 700px;
+    background-color: rgba(32, 32, 32, 0);
+    border-radius: 12px;
+  }
+
+
+  .image {
+    height: 500px;
+  }
+
+  h3,
+  h2 {
+    font-size: 50px;
+    text-align: center;
+    line-height: 80px;
+    margin-top: 16%;
+    margin-bottom: 20px;
+    word-break: keep-all;
+  }
+
+  .abs {
+    margin-top: 0px;
+    width: 100px !important;
+    height: 100px !important;
+  }
+
 }
 </style>

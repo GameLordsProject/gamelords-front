@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
-  <v-card class="mb-5 got" elevation="5">
+
+  <v-card class="mb-5 got card--desktop" elevation="5">
     <div :class="character.house">
       <div v-if="character.image">
         <v-img class="image" :lazy-src="imageDefault" :src="character.image" />
@@ -21,7 +22,7 @@
         <h3>{{character.house}}</h3>
       </v-card-subtitle>
       <v-card-text>
-        <div v-if="character.titles">
+        <div v-if="checkMyTitles()">
           <h5>TITLES</h5>
           <div v-for="(titles, idx) in character.titles" :key="idx">
             <p> {{titles}}</p>
@@ -54,6 +55,7 @@
       </v-card-text>
     </div>
   </v-card>
+
 </template>
 
 <script>
@@ -94,6 +96,9 @@ export default {
         return this.houseImg[`${this.character.house}`]
       }
       return this.houseImg.default
+    },
+    checkMyTitles() {
+      return this.character.titles
     }
   }
 }
@@ -157,13 +162,32 @@ p {
 }
 
 .absolute {
-  position: absolute !important;
-  margin-top: -35px !important;
+  position: absolute;
+  margin-top: -10px;
 }
 
 h3,
-h2,
-.h4 {
-  margin-left: 25% !important;
+h2 {
+  margin-left: 25%;
+}
+
+@media (min-width: 800px) {
+
+
+  .absolute {}
+
+  .card--desktop {
+    margin: auto;
+  }
+
+  h5 {
+    font-size: x-large;
+    margin-bottom: 1em;
+  }
+
+  p {
+    margin-bottom: 2rem;
+    font-size: x-large;
+  }
 }
 </style>

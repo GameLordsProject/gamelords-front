@@ -1,12 +1,13 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
-  <v-card height="100%" class="px-9 pt-4">
+  <v-card height="100%" class="px-9 pt-4 bg ">
+    <div class="padding">
+      <v-card-title class="justify-center mx-md-16 text-h5 text-md-h4">
+        <span class="nolink">GAME</span>
+      </v-card-title>
+    </div>
 
-    <v-card-title class="justify-center text-h5 text-md-h3">
-      <span class="nolink">Westeros Rising</span>
-    </v-card-title>
-
-    <v-card-text>
+    <v-card-text v-if="charactersArray">
       <GameComponent :charactersarray="charactersArray" />
     </v-card-text>
   </v-card>
@@ -34,8 +35,10 @@ export default {
       this.charactersArray = data.book
       // const arr = []
       // for (let i = 0; i < this.charactersArray.length; i++) {
+      //
       //   const obj = {
       //     name: this.charactersArray[i].name,
+      //     image: this.charactersArray[i].image,
       //     likes: 0,
       //     hates: 0,
       //     id: i
@@ -49,6 +52,17 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.bg {
+  background-image: linear-gradient(rgba(15, 15, 15, 0.582), rgba(15, 15, 15, 0.582)), url('https://media.discordapp.net/attachments/1020282879177146368/1022814372902490142/GOT125-32x18-MAIN-SITE.jpg') !important;
+  background-position: center;
+  background-size: cover;
+  /* Resize the background image to cover the entire container */
+}
 
+@media (min-width: 800px) {
+  .padding {
+    padding: 5% 20% 0 20%;
+  }
+}
 </style>

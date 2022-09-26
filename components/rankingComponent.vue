@@ -1,17 +1,27 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
-  <v-card class="bg my-4">
+  <v-container>
+    <v-card class="bg my-4 desktopRankingCards">
+      <v-card-subtitle primary-title>
+        <div v-if="votedcharacter.image">
+          <v-img class="image" cover height="300px" :src="votedcharacter.image" />
+        </div>
+        <div v-else>
+          <v-img class="image" cover height="300px" :src="imageDefault" />
+        </div>
 
-    <v-card-subtitle primary-title>
-      <h4>{{votedcharacter.name}}</h4>
-      <h4>Likes: {{votedcharacter.likes}}</h4>
-      <h4>Hates: {{votedcharacter. hates}}</h4>
-      <v-btn height="20px" width="40px" class="mt-4" @click="search(votedcharacter.name)">
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-    </v-card-subtitle>
+        <v-card-text class="extraMargin">
+          <h4 class="mt-4 ">{{votedcharacter.name}}</h4>
+          <h4>Likes: {{votedcharacter.likes}}</h4>
+          <h4>Hates: {{votedcharacter. hates}}</h4>
+        </v-card-text>
+        <v-btn height="30px" width="40px" class="mt-4 rankingButton" @click="search(votedcharacter.name)">
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+      </v-card-subtitle>
 
-  </v-card>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -20,11 +30,10 @@ import defaultImage from '@/assets/imgs/imgNotFound.png'
 export default {
   name: 'RankingComponent',
   props: {
-    // eslint-disable-next-line vue/require-default-prop
     character: {
-      type: Object
+      type: Object,
+      required: true
     },
-    // eslint-disable-next-line vue/require-default-prop
     votedcharacter: {
       type: Object,
       required: true
@@ -50,11 +59,15 @@ export default {
       }
     }
   },
+  mounted() {
+    console.log(this.votedcharacter)
+  },
   methods: {
     search(param) {
+
       this.$router.push({ path: "/search", query: { q: param } });
     },
-  }
+  },
 }
 </script>
 
@@ -115,17 +128,31 @@ p {
   border: 2px solid #770f0f !important;
 }
 
-.absolutes {
-  position: absolute !important;
-  margin-top: 20px !important;
-}
-
-
 .bg {
   background-color: rgb(46, 46, 46) !important;
 }
 
-.box {
-  height: 100% !important;
+
+@media (min-width: 800px) {
+  .desktopRankingCards {
+
+    margin: auto;
+    width: 400px;
+    height: auto;
+  }
+
+  h4 {
+    font-size: 30px;
+    line-height: 1.5em;
+  }
+
+  .rankingButton {
+    width: 120px !important;
+    height: 60px !important;
+  }
+
+  .extraMargin {
+    margin-top: 50px !important;
+  }
 }
 </style>

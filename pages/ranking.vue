@@ -1,16 +1,22 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
-  <v-card height="100%" class="px-9 pt-4">
-    <v-card-text>
-      <v-text-field v-model="inputText" prepend-icon="mdi-magnify" class="mx-10" :loading="loading" clearable />
-    </v-card-text>
-    <div>
-      <v-btn color="success" @click="findCharactersByVotes()">text</v-btn>
-      <v-switch v-model="switch1" :label="`Show All`"></v-switch>
-      <div class="box">
-        <RankingComponent v-for="(votedcharacter, idx) in filterMyCharacter" :key="idx"
-          :votedcharacter="votedcharacter">
-        </RankingComponent>
+  <v-card height="100%" class="px-9 pt-4 bgRanking">
+    <div class="desktop">
+      <v-card-title>
+        <h2 class="got">Ranking</h2>
+      </v-card-title>
+      <v-card-text>
+
+        <v-text-field v-model="inputText" placeholder="Filter a character" prepend-icon="mdi-magnify" class="got"
+          :loading="loading" clearable />
+      </v-card-text>
+      <div>
+        <v-switch v-model="switch1" :label="`Show All`"></v-switch>
+        <div class="box">
+          <RankingComponent v-for="(votedcharacter, idx) in filterMyCharacter" :key="idx"
+            :votedcharacter="votedcharacter">
+          </RankingComponent>
+        </div>
       </div>
     </div>
   </v-card>
@@ -39,9 +45,9 @@ export default {
   computed: {
     filterMyCharacter() {
       if (this.switch1) {
-        return this.topLikes.filter(e => e.name.includes(this.inputText)).sort((a, b) => b.likes - a.likes).slice(0, this.limit)
+        return this.topLikes.filter(e => e.name.toLowerCase().includes(this.inputText.toLowerCase())).sort((a, b) => b.likes - a.likes).slice(0, this.limit)
       }
-      return this.votedCharacters.filter(e => e.name.includes(this.inputText)).sort((a, b) => b.likes - a.likes).slice(0, 20)
+      return this.votedCharacters.filter(e => e.name.toLowerCase().includes(this.inputText.toLowerCase())).sort((a, b) => b.likes - a.likes).slice(0, 20)
     }
   },
   mounted() {
@@ -71,7 +77,52 @@ export default {
 
 <style scoped>
 .box {
-  overflow-y: auto !important;
-  height: 50vh !important;
+  overflow-y: auto;
+  height: 60vh !important;
+  border-radius: 12px;
+}
+
+.bgRanking {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0.048)), url('https://media.discordapp.net/attachments/1020282879177146368/1022793640910790706/168427.webp?') !important;
+  background-position: center;
+  background-size: cover;
+  /* Resize the background image to cover the entire container */
+}
+
+@media (min-width: 800px) {
+  .box {
+    margin: auto;
+    height: 700px !important;
+  }
+
+  .desktop {
+    width: 60%;
+    margin: auto;
+  }
+
+  h2 {
+    text-align: center !important;
+    width: 100%;
+    margin: 0 !important;
+  }
+
+  .box::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  .box::-webkit-scrollbar-track {
+    background: #202020;
+    border-left: 1px solid #2c2c2c;
+  }
+
+  .box::-webkit-scrollbar-thumb {
+    background: #3e3e3e;
+    border: solid 3px #202020;
+    border-radius: 7px;
+  }
+
+  .box::-webkit-scrollbar-thumb:hover {
+    background: white;
+  }
 }
 </style>

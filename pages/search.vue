@@ -1,12 +1,15 @@
 <!-- eslint-disable vue/first-attribute-linebreak -->
 <template>
-  <v-card height="100%" class="px-9 pt-4">
-    <v-card-text>
-      <v-autocomplete v-model="query" prepend-icon="mdi-magnify" class="mx-10" :items="booksCharacters"
-        :loading="loading" clearable @click="search()" @keyup.enter="search()" />
-    </v-card-text>
-    <div>
-      <SearcherComponent :character="character" />
+  <v-card height="100%" class=" px-9 pt-4 bgSearch">
+    <div class="desktop">
+
+      <v-card-text class="bgInput">
+        <v-autocomplete v-model="query" placeholder="Filter a character" prepend-icon="mdi-magnify"
+          :items="booksCharacters" :loading="loading" clearable @click="search()" @keyup.enter="search()" />
+      </v-card-text>
+      <div>
+        <SearcherComponent :character="character" class="desktop" />
+      </div>
     </div>
   </v-card>
 </template>
@@ -42,7 +45,6 @@ export default {
   },
   async mounted() {
     await this.findCharacter();
-    console.log('hey')
   },
   methods: {
     search() {
@@ -56,7 +58,6 @@ export default {
       const { data } = await axios.get(`https://api.got.show/api/general/characters/${this.$route.query.q}`);
       if (data.book) {
         this.character = data.book
-        console.log(this.character)
       }
       this.loading = false
       // axios.get('https://api.got.show/api/book/houses/').then(res => {
@@ -68,3 +69,29 @@ export default {
 </script>
 
 
+<style>
+.bgSearch {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0.048)), url('https://media.discordapp.net/attachments/1020282879177146368/1022824244591210556/cESMZd.jpg') !important;
+  background-position: center;
+  background-size: cover;
+  /* Resize the background image to cover the entire container */
+
+}
+
+.bgInput {
+  background-color: #1e1e1ed8 !important;
+  border-radius: 12px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 800px) {
+
+  .desktop {
+    margin: auto;
+    width: 600px;
+  }
+
+
+}
+</style>
