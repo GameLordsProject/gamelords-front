@@ -32,8 +32,8 @@ export default {
 
   },
   updated() {
-    if (localStorage.getItem('votes')) {
-      this.votes = localStorage.votes
+    if (parseInt(localStorage.votes) > 0) {
+      this.votes = parseInt(localStorage.votes)
     }
   },
   methods: {
